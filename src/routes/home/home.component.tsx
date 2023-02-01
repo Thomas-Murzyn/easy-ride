@@ -1,10 +1,14 @@
-import { HomeContainer } from "./home.styles";
+import { HomeContainer, ButtonContainer } from "./home.styles";
+import Button, { ButtonType } from "../../components/button/button.component";
 
 function Home() {
   return (
     <HomeContainer>
-      <div>efoiezfez</div>
-      <div>eznfoeaz</div>
+      <h1>Vendez vos vieux vélos en toutes simplicité</h1>
+      <ButtonContainer>
+        <Button buttonStyle={ButtonType.ButtonHome}>Acheter</Button>
+        <Button buttonStyle={ButtonType.ButtonHome}>Vendre</Button>
+      </ButtonContainer>
     </HomeContainer>
   );
 }

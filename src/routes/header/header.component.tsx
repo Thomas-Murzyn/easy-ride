@@ -19,7 +19,7 @@ function Header() {
           <NavLink to="/">Accueil</NavLink>
           <NavLink to="/shop">Acheter</NavLink>
           <NavLink to="/sell">Vendre</NavLink>
-          <NavLink to="/sign-in">Se Connecter</NavLink>
+          <NavLink to="/sign-in">Se connecter</NavLink>
         </NavigationContainer>
       </HeaderContainer>
       <Outlet />

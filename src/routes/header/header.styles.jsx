@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  padding: 0px 30px;
 `;
 
 export const LogoContainer = styled.div`
@@ -23,7 +23,6 @@ export const LogoContainer = styled.div`
 `;
 
 export const NavigationContainer = styled.nav`
-  width: 25%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
