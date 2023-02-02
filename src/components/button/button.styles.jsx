@@ -21,4 +21,15 @@ export const SubmitButton = styled.button`
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
+  border: 1px solid black;
+  -webkit-box-shadow: 2px 6px 13px 1px rgba(0, 0, 0, 0.74);
+  box-shadow: 2px 6px 13px 1px rgba(0, 0, 0, 0.74);
+  font-weight: inherit;
+  transition: border-radius 500ms ease-in-out,
+    background-color 500ms ease-in-out, border-color 500ms ease-in-out;
+  &:hover {
+    border-radius: 10px;
+    background-color: green;
+    border-color: green;
+  }
 `;

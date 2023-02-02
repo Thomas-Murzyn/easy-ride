@@ -1,5 +1,18 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  User,
+} from "firebase/auth";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  QueryDocumentSnapshot,
+} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,19 +27,70 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const db = getFirestore(app);
 
-type AdditionalContent = {
-  displayName: string;
-};
+const auth = getAuth(app);
 
 export const createUserWithEmail = async (email: string, password: string) => {
   if (!email || !password) return;
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  return userCredential.user;
+export const signInWithEmail = async (email: string, password: string) => {
+  if (!email || !password) return;
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+type AdditionalContent = {
+  displayName?: string;
+};
+
+type UserData = {
+  displayName: string;
+  createdAt: Date;
+  email: string;
+};
+
+export const createUserDocumentFromAuth = async (
+  user: User,
+  additionalContent: AdditionalContent
+): Promise<undefined | QueryDocumentSnapshot<UserData>> => {
+  // Get la réf de notre user dans la collection users de la db en le trouvant grâce à son uid
+  const userDocRef = await doc(db, "users", user.uid);
+  // Get un snapshot de ce user dans notre base de donnée en faisant getDoc avec la réf que l'on a récupéré
+  const userSnapshot = await getDoc(userDocRef);
+
+  if (!userSnapshot.exists()) {
+    try {
+      const { displayName, email } = user;
+      const createdAt = new Date();
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalContent,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return userSnapshot as QueryDocumentSnapshot<UserData>;
 };

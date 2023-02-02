@@ -1,7 +1,10 @@
 import { SignUpFormContainer } from "./sign-up-form.styles";
 import FormField from "../form-input/form-field.component";
 import { useState } from "react";
-import { createUserWithEmail } from "../../utils/firebase/firebase.utils";
+import {
+  createUserWithEmail,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
 import Button, { ButtonType } from "../button/button.component";
 
 const defaultFormFields = {
@@ -24,6 +27,11 @@ function SignUpForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const user = await createUserWithEmail(email, password);
+    if (user) {
+      const userSnapshot = await createUserDocumentFromAuth(user, {
+        displayName,
+      });
+    }
   };
 
   return (
@@ -61,7 +69,9 @@ function SignUpForm() {
         value={confirmPassword}
         onChange={handleFormFields}
       />
-      <Button buttonStyle={ButtonType.ButtonSubmit}>Valider</Button>
+      <Button type="submit" buttonStyle={ButtonType.ButtonSubmit}>
+        Valider
+      </Button>
     </SignUpFormContainer>
   );
 }
