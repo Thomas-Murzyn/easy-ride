@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   User,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import {
@@ -63,7 +64,7 @@ type AdditionalContent = {
   displayName?: string;
 };
 
-type UserData = {
+export type UserData = {
   displayName: string;
   createdAt: Date;
   email: string;
@@ -81,16 +82,32 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     try {
       const { displayName, email } = user;
-      const createdAt = new Date();
+      const createdAt = new Date().toUTCString();
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
         ...additionalContent,
       });
+
+      const refreshedUserSnapshot = await getDoc(userDocRef);
+      return refreshedUserSnapshot as QueryDocumentSnapshot<UserData>;
     } catch (error) {
       console.error(error);
     }
   }
   return userSnapshot as QueryDocumentSnapshot<UserData>;
+};
+
+export const getCurrentUser = async (): Promise<User | null> => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
 };

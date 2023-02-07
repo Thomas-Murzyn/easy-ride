@@ -3,7 +3,7 @@ import image from "../../assets/home-picture.jpg";
 
 export const HomeContainer = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   background-image: url(${image});
   display: flex;
   flex-direction: column;

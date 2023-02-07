@@ -1,7 +1,7 @@
 import {} from "./shop.styles";
 
 function Shop() {
-  return <div>Shop page</div>;
+  return <div>shop page</div>;
 }
 
 export default Shop;

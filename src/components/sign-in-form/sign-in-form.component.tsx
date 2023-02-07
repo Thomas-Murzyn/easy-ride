@@ -2,10 +2,9 @@ import { SignInFormContainer } from "./sign-in-form.styles";
 import FormField from "../form-input/form-field.component";
 import { useState } from "react";
 import Button, { ButtonType } from "../button/button.component";
-import {
-  signInWithEmail,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+import { fetchUser } from "../../app/features/user/user.slice";
+
+import { useAppDispatch } from "../../app/hooks/hooks";
 
 const defaultFormFields = {
   email: "",
@@ -13,6 +12,8 @@ const defaultFormFields = {
 };
 
 function SignInForm() {
+  const dispatch = useAppDispatch();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -23,10 +24,8 @@ function SignInForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const user = await signInWithEmail(email, password);
-    if (user) {
-      const userSnapshot = await createUserDocumentFromAuth(user, {});
-    }
+
+    dispatch(fetchUser({ email, password, signIn: true }));
   };
 
   return (
@@ -48,6 +47,7 @@ function SignInForm() {
         value={password}
         onChange={handleFormFields}
       />
+
       <Button buttonStyle={ButtonType.ButtonSubmit} type="submit">
         Se connecter
       </Button>

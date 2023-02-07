@@ -2,12 +2,14 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const HeaderContainer = styled.header`
-  height: 80px;
+  padding: 0px 30px;
+  height: 55px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 30px;
+  background-color: #ffffff;
+  position: absolute;
 `;
 
 export const LogoContainer = styled.div`
@@ -26,6 +28,7 @@ export const NavigationContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  width: 25%;
 `;
 
 export const NavLink = styled(Link)`

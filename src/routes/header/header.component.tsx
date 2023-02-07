@@ -1,8 +1,8 @@
 import {
   HeaderContainer,
-  LogoContainer,
   NavigationContainer,
   NavLink,
+  LogoContainer,
 } from "./header.styles";
 import { Outlet } from "react-router-dom";
 import Logo from "../../assets/easyRide_logo.png";

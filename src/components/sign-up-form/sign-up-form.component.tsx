@@ -1,10 +1,9 @@
 import { SignUpFormContainer } from "./sign-up-form.styles";
 import FormField from "../form-input/form-field.component";
 import { useState } from "react";
-import {
-  createUserWithEmail,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+import { fetchUser } from "../../app/features/user/user.slice";
+
+import { useAppDispatch } from "../../app/hooks/hooks";
 import Button, { ButtonType } from "../button/button.component";
 
 const defaultFormFields = {
@@ -15,6 +14,7 @@ const defaultFormFields = {
 };
 
 function SignUpForm() {
+  const dispatch = useAppDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
 
   const { email, displayName, password, confirmPassword } = formFields;
@@ -26,12 +26,7 @@ function SignUpForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const user = await createUserWithEmail(email, password);
-    if (user) {
-      const userSnapshot = await createUserDocumentFromAuth(user, {
-        displayName,
-      });
-    }
+    dispatch(fetchUser({ email, password, signIn: false, displayName }));
   };
 
   return (
