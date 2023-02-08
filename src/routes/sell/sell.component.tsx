@@ -9,12 +9,41 @@ const defaultFormFields = {
   category: "",
   price: "",
   description: "",
-  // image
 };
 
 function Sell() {
+  const [image, setImage] = useState<Blob>({} as Blob);
+  const [imageNames, setImageNames] = useState<string[]>([]);
+
   const [formField, setFormField] = useState(defaultFormFields);
+
   const { articleName, category, price, description } = formField;
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "murzynt");
+    data.append("cloud_name", "dkwgtzzxc");
+    const response = await fetch(
+      "  https://api.cloudinary.com/v1_1/dkwgtzzxc/image/upload",
+      {
+        method: "post",
+        body: data,
+      }
+    );
+    const { url } = await response.json();
+    await addItemToSell(articleName, category, price, description, url);
+  };
+
+  const handleImageFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    if (files) {
+      const newArr = [...imageNames];
+      newArr.push(files[0].name);
+      setImageNames(newArr);
+      setImage(files[0] as Blob);
+    }
+  };
 
   const handleFormFields = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -23,12 +52,13 @@ function Sell() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await addItemToSell(articleName, category, price, description);
+    await uploadImage();
   };
 
   return (
     <SellContainer onSubmit={handleSubmit}>
       <SellForm>
+        <h2>Que souhaitez-vous vendre ?</h2>
         <FormField
           name="articleName"
           type="text"
@@ -60,6 +90,14 @@ function Sell() {
           required
           value={description}
           onChange={handleFormFields}
+        />
+        <FormField
+          name="image"
+          type="file"
+          label="Ajouter des photos"
+          required
+          onChange={handleImageFile}
+          imageNames={imageNames}
         />
         <Button type="submit" buttonStyle={ButtonType.ButtonSubmit}>
           Valider

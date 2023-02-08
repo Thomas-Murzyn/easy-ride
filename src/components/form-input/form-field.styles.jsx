@@ -38,11 +38,32 @@ export const Input = styled.input`
   }
 `;
 
+export const LabelFile = styled.label`
+  color: ${mainColor};
+  padding: 10px;
+  background-color: whitesmoke;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const InputFile = styled.input`
+  display: none;
+`;
+
+export const NameContainer = styled.div`
+  padding: 10px;
+  font-size: 15px;
+  color: ${mainColor};
+  border: 1px solid ${mainColor};
+`;
+
 export const FormGroup = styled.div`
   width: 80%;
   margin: 20px 0px;
   font-size: 25px;
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: ${(file) => (file ? "column" : "column-reverse")};
 `;

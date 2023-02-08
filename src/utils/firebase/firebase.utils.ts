@@ -13,7 +13,6 @@ import {
   setDoc,
   getDoc,
   QueryDocumentSnapshot,
-  addDoc,
   collection,
 } from "firebase/firestore";
 
@@ -118,7 +117,8 @@ export const addItemToSell = async (
   articleName: string,
   category: string,
   price: string,
-  description: string
+  description: string,
+  imageUrl: string
 ) => {
   try {
     const collectionRef = collection(db, "articles");
@@ -129,6 +129,7 @@ export const addItemToSell = async (
       category,
       price,
       description,
+      imageUrl,
     });
   } catch (e) {
     console.error("Error adding document: ", e);
