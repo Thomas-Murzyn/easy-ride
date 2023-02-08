@@ -13,6 +13,8 @@ import {
   setDoc,
   getDoc,
   QueryDocumentSnapshot,
+  addDoc,
+  collection,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -110,4 +112,25 @@ export const getCurrentUser = async (): Promise<User | null> => {
       reject
     );
   });
+};
+
+export const addItemToSell = async (
+  articleName: string,
+  category: string,
+  price: string,
+  description: string
+) => {
+  try {
+    const collectionRef = collection(db, "articles");
+    const docRef = doc(collectionRef, category);
+
+    await setDoc(docRef, {
+      articleName,
+      category,
+      price,
+      description,
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 };

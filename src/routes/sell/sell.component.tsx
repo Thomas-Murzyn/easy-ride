@@ -1,6 +1,8 @@
 import { SellContainer, SellForm } from "./sell.styles";
 import FormField from "../../components/form-input/form-field.component";
 import { useState } from "react";
+import { addItemToSell } from "../../utils/firebase/firebase.utils";
+import Button, { ButtonType } from "../../components/button/button.component";
 
 const defaultFormFields = {
   articleName: "",
@@ -19,8 +21,13 @@ function Sell() {
     setFormField({ ...formField, [name]: value });
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await addItemToSell(articleName, category, price, description);
+  };
+
   return (
-    <SellContainer>
+    <SellContainer onSubmit={handleSubmit}>
       <SellForm>
         <FormField
           name="articleName"
@@ -54,6 +61,9 @@ function Sell() {
           value={description}
           onChange={handleFormFields}
         />
+        <Button type="submit" buttonStyle={ButtonType.ButtonSubmit}>
+          Valider
+        </Button>
       </SellForm>
     </SellContainer>
   );
