@@ -1,10 +1,11 @@
 import styled from "styled-components";
+
 import sellBackground from "../../assets/sell_background.jpg";
 
 export const SellFormContainer = styled.div`
   background-image: url(${sellBackground});
-  background-position: bottom;
-  height: 100vh;
+  background-position: center;
+  height: 85vh;
   width: 100%;
   display: flex;
   flex-direction: column;

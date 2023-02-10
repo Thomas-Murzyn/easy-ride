@@ -7,11 +7,13 @@ import Shop from "./routes/shop/shop.component";
 import { isUserAuthenticated } from "./app/features/user/user.slice";
 import { useAppDispatch } from "./app/hooks/hooks";
 import { useEffect } from "react";
+import { fetchArticles } from "./app/features/articles/articles.slice";
 
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(isUserAuthenticated());
+    dispatch(fetchArticles());
     // eslint-disable-next-line
   }, []);
 

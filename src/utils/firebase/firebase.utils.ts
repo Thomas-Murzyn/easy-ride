@@ -15,6 +15,8 @@ import {
   QueryDocumentSnapshot,
   collection,
   addDoc,
+  getDocs,
+  query,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -138,5 +140,20 @@ export const addItemToSell = async (
     });
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+};
+
+export const getArticles = async () => {
+  try {
+    const q = query(collection(db, "articles"));
+
+    const querySnapshot = await getDocs(q);
+    const userArticles = querySnapshot.docs.map((doc) => {
+      return doc.data();
+    });
+
+    return userArticles;
+  } catch (error) {
+    console.error(error);
   }
 };
