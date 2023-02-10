@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { styled as muiStyled } from "@mui/material/styles";
 
 const mainColor = "grey";
 
@@ -57,6 +59,19 @@ export const NameContainer = styled.div`
   font-size: 15px;
   color: ${mainColor};
   border: 1px solid ${mainColor};
+`;
+
+export const NamePicture = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CustomClearRoundedIcon = muiStyled(ClearRoundedIcon)`
+cursor: pointer;
+  &:hover {
+    color: red;
+  }
 `;
 
 export const FormGroup = styled.div`

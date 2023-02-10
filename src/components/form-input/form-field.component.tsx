@@ -5,6 +5,8 @@ import {
   LabelFile,
   InputFile,
   NameContainer,
+  NamePicture,
+  CustomClearRoundedIcon,
 } from "./form-field.styles";
 import { InputHTMLAttributes, FC } from "react";
 import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";
@@ -12,11 +14,13 @@ import AddAPhotoRoundedIcon from "@mui/icons-material/AddAPhotoRounded";
 type FormInputProps = {
   label: string;
   imageNames?: string[];
+  removeFile?: (file: string) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const FormField: FC<FormInputProps> = ({
   label,
   imageNames,
+  removeFile,
   ...otherProps
 }) => {
   if (otherProps.type === "file") {
@@ -27,10 +31,19 @@ const FormField: FC<FormInputProps> = ({
           <AddAPhotoRoundedIcon fontSize="large" />
           <InputFile id={otherProps.name} {...otherProps} />
         </LabelFile>
-        <NameContainer>
-          {imageNames &&
-            imageNames.map((name) => <span key={name}>{name}</span>)}
-        </NameContainer>
+        {imageNames && imageNames?.length > 0 && (
+          <NameContainer>
+            {imageNames &&
+              imageNames.map((name) => (
+                <NamePicture key={name}>
+                  {name}{" "}
+                  <CustomClearRoundedIcon
+                    onClick={() => removeFile && removeFile(name)}
+                  />
+                </NamePicture>
+              ))}
+          </NameContainer>
+        )}
       </FormGroup>
     );
   }

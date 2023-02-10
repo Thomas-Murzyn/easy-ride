@@ -19,6 +19,10 @@ function SignUpForm() {
 
   const { email, displayName, password, confirmPassword } = formFields;
 
+  const resetFormField = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleFormFields = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -27,6 +31,7 @@ function SignUpForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(fetchUser({ email, password, signIn: false, displayName }));
+    resetFormField();
   };
 
   return (

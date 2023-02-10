@@ -17,6 +17,10 @@ function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const resetFormField = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleFormFields = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -26,6 +30,7 @@ function SignInForm() {
     event.preventDefault();
 
     dispatch(fetchUser({ email, password, signIn: true }));
+    resetFormField();
   };
 
   return (

@@ -14,6 +14,7 @@ import {
   getDoc,
   QueryDocumentSnapshot,
   collection,
+  addDoc,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -69,6 +70,7 @@ export type UserData = {
   displayName: string;
   createdAt: Date;
   email: string;
+  userId: string;
 };
 
 export const createUserDocumentFromAuth = async (
@@ -83,11 +85,13 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     try {
       const { displayName, email } = user;
+      const userId = user.uid;
       const createdAt = new Date().toUTCString();
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
+        userId,
         ...additionalContent,
       });
 
@@ -118,18 +122,19 @@ export const addItemToSell = async (
   category: string,
   price: string,
   description: string,
-  imageUrl: string
+  imageUrls: string[],
+  userId: string
 ) => {
   try {
-    const collectionRef = collection(db, "articles");
-    const docRef = doc(collectionRef, category);
+    const collectionRef = collection(db, `articles`);
 
-    await setDoc(docRef, {
+    await addDoc(collectionRef, {
       articleName,
       category,
       price,
       description,
-      imageUrl,
+      imageUrls,
+      userId,
     });
   } catch (e) {
     console.error("Error adding document: ", e);
