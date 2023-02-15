@@ -6,16 +6,32 @@ import Sell from "./routes/sell/sell.component";
 import Shop from "./routes/shop/shop.component";
 import { isUserAuthenticated } from "./app/features/user/user.slice";
 import { useAppDispatch } from "./app/hooks/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchArticles } from "./app/features/articles/articles.slice";
+
+import { onArticles } from "./utils/firebase/firebase.utils";
+import { Article } from "./app/features/articles/articles.slice";
 
 function App() {
   const dispatch = useAppDispatch();
+  const [articles, setArticles] = useState<Article[]>([]);
+
   useEffect(() => {
+    const fetchData = async () => {
+      const unsub = await onArticles(setArticles);
+      return () => {
+        unsub();
+      };
+    };
+    fetchData();
     dispatch(isUserAuthenticated());
-    dispatch(fetchArticles());
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchArticles(articles));
+    // eslint-disable-next-line
+  }, [articles]);
 
   return (
     <Routes>

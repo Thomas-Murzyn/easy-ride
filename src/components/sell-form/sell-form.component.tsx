@@ -3,9 +3,10 @@ import FormField from "../form-input/form-field.component";
 import { useState } from "react";
 import { addItemToSell } from "../../utils/firebase/firebase.utils";
 import Button, { ButtonType } from "../../components/button/button.component";
-import { useAppSelector } from "../../app/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks/hooks";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 import FormSelect from "../form-input/form-select.component";
+import { fetchArticles } from "../../app/features/articles/articles.slice";
 
 const defaultFormFields = {
   articleName: "",
@@ -24,6 +25,7 @@ const categories = [
 
 function SellForm() {
   const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
   const userId = currentUser?.userId;
   const [images, setImages] = useState<Blob[]>([]);
 
@@ -65,6 +67,7 @@ function SellForm() {
             imageUrls,
             userId as string
           );
+          dispatch(fetchArticles);
         }
       } catch (error) {
         console.error(error);
@@ -113,8 +116,8 @@ function SellForm() {
   };
 
   return (
-    <SellFormContainer onSubmit={handleSubmit}>
-      <FormSell>
+    <SellFormContainer>
+      <FormSell onSubmit={handleSubmit}>
         <h2>Que souhaitez-vous vendre ?</h2>
         <FormField
           name="articleName"

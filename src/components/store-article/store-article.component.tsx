@@ -10,7 +10,7 @@ const StoreArticle = ({ article }: { article: Article }) => {
   return (
     <ArticleContainer>
       <ArticlePictureContainer>
-        <img src={article.imageUrls[0]} />
+        <img src={article.imageUrls[0]} alt={article.articleName} />
       </ArticlePictureContainer>
       <ArticleInfoContainer>
         <ArticleInfo>{article.articleName}</ArticleInfo>

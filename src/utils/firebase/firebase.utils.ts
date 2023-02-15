@@ -17,7 +17,11 @@ import {
   addDoc,
   getDocs,
   query,
+  onSnapshot,
+  Unsubscribe,
 } from "firebase/firestore";
+
+import { Article } from "../../app/features/articles/articles.slice";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -32,7 +36,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 const auth = getAuth(app);
 
@@ -156,4 +160,24 @@ export const getArticles = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const onArticles = async (
+  setArticles: React.Dispatch<React.SetStateAction<Article[]>>
+): Promise<Unsubscribe> => {
+  return new Promise((resolve, reject) => {
+    const q = query(collection(db, "articles"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const arr: Article[] = [];
+        snapshot.forEach((doc) => {
+          arr.push(doc.data() as Article);
+        });
+        setArticles(arr);
+        resolve(unsubscribe);
+      },
+      reject
+    );
+  });
 };

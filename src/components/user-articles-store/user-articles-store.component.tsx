@@ -1,11 +1,14 @@
-import { StoreContainer, StoreTitle } from "./user-store.styles";
+import {
+  UserStoreContainer,
+  UserStoreTitle,
+} from "./user-articles-store.styles";
 
 import { useAppSelector } from "../../app/hooks/hooks";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 import { selectUserArticles } from "../../app/features/articles/articles.selector";
 import StoreArticle from "../store-article/store-article.component";
 
-function UserStore() {
+function UserStoreArticles() {
   const currentUser = useAppSelector(selectCurrentUser);
   const articles = useAppSelector(
     selectUserArticles(currentUser?.userId as string)
@@ -13,8 +16,8 @@ function UserStore() {
 
   return (
     <>
-      <StoreTitle>Vos articles</StoreTitle>
-      <StoreContainer>
+      <UserStoreTitle>Vos articles</UserStoreTitle>
+      <UserStoreContainer>
         {articles.map((article) => {
           return (
             <StoreArticle
@@ -23,9 +26,9 @@ function UserStore() {
             />
           );
         })}
-      </StoreContainer>
+      </UserStoreContainer>
     </>
   );
 }
 
-export default UserStore;
+export default UserStoreArticles;
