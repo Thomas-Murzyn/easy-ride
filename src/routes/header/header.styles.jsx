@@ -9,7 +9,8 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
-  position: absolute;
+  position: fixed;
+  z-index: 99999;
 `;
 
 export const LogoContainer = styled.div`
@@ -28,7 +29,7 @@ export const NavigationContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 25%;
+  width: 30%;
 `;
 
 export const NavLink = styled(Link)`

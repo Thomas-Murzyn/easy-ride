@@ -5,8 +5,9 @@ import sellBackground from "../../assets/sell_background.jpg";
 export const SellFormContainer = styled.div`
   background-image: url(${sellBackground});
   background-position: center;
-  height: 85vh;
+  height: fit-content;
   width: 100%;
+  padding: 50px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;

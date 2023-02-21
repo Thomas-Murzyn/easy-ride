@@ -4,6 +4,8 @@ const mainColor = "grey";
 
 export const ArticleContainer = styled.div`
   width: 400px;
+  margin-bottom: 30px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
