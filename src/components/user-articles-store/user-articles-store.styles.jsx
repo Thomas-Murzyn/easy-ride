@@ -6,13 +6,8 @@ export const UserStoreContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-
-  /* display: grid;
   justify-content: center;
-  align-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 20px; */
+  gap: 30px;
 `;
 
 export const UserStoreTitle = styled.h2`
