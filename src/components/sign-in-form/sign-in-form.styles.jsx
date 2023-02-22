@@ -12,4 +12,9 @@ export const SignInFormContainer = styled.form`
   gap: 20px;
   align-items: center;
   padding: 20px;
+  margin: 100px 0px 30px 0px;
+
+  @media (max-width: 900px) {
+    margin: 30px 0px;
+  }
 `;
