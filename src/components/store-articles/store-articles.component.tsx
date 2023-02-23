@@ -13,6 +13,7 @@ function StoreArticles() {
   return (
     <StoreContainer>
       <StoreHeader />
+
       <StoreArticlesContainer>
         {articles.map((article) => {
           return (

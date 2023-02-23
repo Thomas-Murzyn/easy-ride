@@ -15,7 +15,7 @@ const defaultFormFields = {
   description: "",
 };
 
-const categories = [
+export const categories = [
   "vélo",
   "trotinnette",
   "rollers",

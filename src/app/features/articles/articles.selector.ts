@@ -15,8 +15,3 @@ export const selectUserArticles = (userId: string) => {
     })
   );
 };
-
-// export const selectUserArticles = createSelector(
-//   selectArticlesReducer,
-//   (articles) => articles.articles
-// );
