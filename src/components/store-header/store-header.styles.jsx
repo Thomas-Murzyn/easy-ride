@@ -33,6 +33,7 @@ export const StoreCategorySelector = styled.div`
 `;
 
 export const DropDownMenu = styled.div`
+  width: 25%;
   box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
@@ -48,6 +49,9 @@ export const DropDownMenu = styled.div`
   flex-direction: column;
 
   span {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
     text-transform: capitalize;
     cursor: pointer;
