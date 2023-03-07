@@ -85,12 +85,13 @@ export const DropDownMenu = styled.div`
 
 export const SliderContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 5px;
+
   width: 40%;
+
   .MuiSlider-root {
+    width: 65%;
     color: #dcdcdc;
   }
 
@@ -99,15 +100,12 @@ export const SliderContainer = styled.div`
   }
 
   div {
-    width: 100%;
     font-size: 15px;
     font-weight: 500;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
   }
 
   @media (max-width: 750px) {
     width: 80%;
+    top: 150px;
   }
 `;

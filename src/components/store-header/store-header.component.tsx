@@ -47,12 +47,13 @@ function StoreHeader({
           <KeyboardArrowDownRoundedIcon />
         </StoreCategorySelector>
         <SliderContainer>
-          <div>
+          {/* <div>
             <span>{`Min ${price[0]}€`}</span>
             <span>{`Max ${price[1]}€`}</span>
-          </div>
+          </div> */}
+          <span>{`Min ${price[0]}€`}</span>
           <Slider
-            getAriaLabel={() => "Minimum distance"}
+            getAriaLabel={() => "Price"}
             value={price}
             onChange={handleChange}
             valueLabelDisplay="auto"
@@ -62,6 +63,7 @@ function StoreHeader({
             min={0}
             max={2000}
           />
+          <span>{`Max ${price[1]}€`}</span>
         </SliderContainer>
       </StoreHeaderContainer>
 
