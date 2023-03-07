@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
 export const StoreHeaderWrapper = styled.div`
-  width: 60%;
+  width: 80%;
   margin: 0px auto 50px auto;
   position: relative;
+
+  @media (max-width: 900px) {
+    width: 90%;
+  }
 `;
 
 export const StoreHeaderContainer = styled.div`
@@ -14,6 +18,12 @@ export const StoreHeaderContainer = styled.div`
   padding: 15px;
   width: 100%;
   display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
 `;
 
 export const StoreCategorySelector = styled.div`
@@ -29,6 +39,11 @@ export const StoreCategorySelector = styled.div`
 
   &:hover {
     background-color: #c0c0c0;
+  }
+
+  @media (max-width: 750px) {
+    width: 80%;
+    justify-content: center;
   }
 `;
 
@@ -60,5 +75,39 @@ export const DropDownMenu = styled.div`
     &:hover {
       background-color: #c0c0c0;
     }
+  }
+
+  @media (max-width: 750px) {
+    width: 80%;
+    top: 150px;
+  }
+`;
+
+export const SliderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40%;
+  .MuiSlider-root {
+    color: #dcdcdc;
+  }
+
+  .MuiSlider-root:hover {
+    color: #c0c0c0;
+  }
+
+  div {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  @media (max-width: 750px) {
+    width: 80%;
   }
 `;

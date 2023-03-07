@@ -3,10 +3,12 @@ import {
   StoreCategorySelector,
   DropDownMenu,
   StoreHeaderWrapper,
+  SliderContainer,
 } from "./store-header.styles";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import Slider from "@mui/material/Slider";
 import { useState } from "react";
 
 import { categories } from "../sell-form/sell-form.component";
@@ -15,12 +17,24 @@ export type StoreHeaderProp = {
   handleCategories: (category: string) => void;
   categoriesSelected: string[];
   clearCategory: (category: string) => void;
+  handleChange: (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => void;
+  price: number[];
 };
+
+function valuetext(value: number) {
+  return `${value}€`;
+}
 
 function StoreHeader({
   handleCategories,
   categoriesSelected,
   clearCategory,
+  handleChange,
+  price,
 }: StoreHeaderProp) {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -32,6 +46,23 @@ function StoreHeader({
           Category
           <KeyboardArrowDownRoundedIcon />
         </StoreCategorySelector>
+        <SliderContainer>
+          <div>
+            <span>{`Min ${price[0]}€`}</span>
+            <span>{`Max ${price[1]}€`}</span>
+          </div>
+          <Slider
+            getAriaLabel={() => "Minimum distance"}
+            value={price}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            getAriaValueText={valuetext}
+            valueLabelFormat={valuetext}
+            disableSwap
+            min={0}
+            max={2000}
+          />
+        </SliderContainer>
       </StoreHeaderContainer>
 
       {showMenu && (

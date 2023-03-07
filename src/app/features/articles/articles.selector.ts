@@ -17,13 +17,20 @@ export const selectUserArticles = (userId: string) => {
   );
 };
 
-export const selectArticlesByCategories = (categories: string[]) => {
+export const selectArticlesByCategories = (
+  categories: string[],
+  price: number[]
+) => {
   return createSelector(selectArticlesReducer, (articles) => {
     if (categories.length) {
       const articlesFiltered: Article[] = [];
       for (let i = 0; i < categories.length; i++) {
         articles.articles.forEach((article) => {
-          if (article.category === categories[i]) {
+          if (
+            article.category === categories[i] &&
+            price[0] <= Number(article.price) &&
+            price[1] >= Number(article.price)
+          ) {
             articlesFiltered.push(article);
           }
         });
@@ -32,6 +39,13 @@ export const selectArticlesByCategories = (categories: string[]) => {
       return articlesFiltered;
     }
 
-    return articles.articles;
+    return articles.articles.filter((article) => {
+      if (
+        price[0] <= Number(article.price) &&
+        price[1] >= Number(article.price)
+      ) {
+        return article;
+      }
+    });
   });
 };
