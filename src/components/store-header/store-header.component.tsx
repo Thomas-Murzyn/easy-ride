@@ -47,10 +47,6 @@ function StoreHeader({
           <KeyboardArrowDownRoundedIcon />
         </StoreCategorySelector>
         <SliderContainer>
-          {/* <div>
-            <span>{`Min ${price[0]}€`}</span>
-            <span>{`Max ${price[1]}€`}</span>
-          </div> */}
           <span>{`Min ${price[0]}€`}</span>
           <Slider
             getAriaLabel={() => "Price"}
