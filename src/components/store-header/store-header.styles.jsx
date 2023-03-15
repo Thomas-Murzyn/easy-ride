@@ -78,6 +78,10 @@ export const DropDownMenu = styled.div`
     }
   }
 
+  div {
+    margin: 10px 0;
+  }
+
   @media (max-width: 750px) {
     width: 80%;
     left: inherit;

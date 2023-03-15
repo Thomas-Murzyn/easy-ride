@@ -10,6 +10,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+import { priceFilter } from "../store-articles/store-articles.component";
 
 import { categories } from "../sell-form/sell-form.component";
 
@@ -17,7 +18,8 @@ export type StoreHeaderProp = {
   handleCategories: (category: string) => void;
   categoriesSelected: string[];
   clearCategory: (category: string) => void;
-  handleChange: (
+  setFilter: (filter: priceFilter) => void;
+  handleChangePrice: (
     event: Event,
     newValue: number | number[],
     activeThumb: number
@@ -33,11 +35,22 @@ function StoreHeader({
   handleCategories,
   categoriesSelected,
   clearCategory,
-  handleChange,
+  handleChangePrice,
   price,
+  setFilter,
 }: StoreHeaderProp) {
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "asc") {
+      setFilter("asc");
+    }
+    if (value === "desc") {
+      setFilter("desc");
+    }
+  };
 
   return (
     <StoreHeaderWrapper>
@@ -59,7 +72,7 @@ function StoreHeader({
           <Slider
             getAriaLabel={() => "Price"}
             value={price}
-            onChange={handleChange}
+            onChange={handleChangePrice}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
             valueLabelFormat={valuetext}
@@ -98,26 +111,30 @@ function StoreHeader({
 
       {showFilterMenu && (
         <DropDownMenu filter="true">
-          {categories.map((category, index) => {
-            return (
-              <span
-                style={{
-                  backgroundColor: `${
-                    categoriesSelected.includes(category)
-                      ? "#c0c0c0"
-                      : "whitesmoke"
-                  }`,
-                }}
-                onClick={() => handleCategories(category)}
-                key={index}
-              >
-                {category}
-                {categoriesSelected.includes(category) && (
-                  <ClearRoundedIcon onClick={() => clearCategory(category)} />
-                )}
-              </span>
-            );
-          })}
+          <fieldset>
+            <legend>Prix:</legend>
+            <div>
+              <label htmlFor="croissant">Croissant </label>
+              <input
+                type="radio"
+                id="croissant"
+                name="price"
+                value={"asc"}
+                onChange={handleFilter}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="decroissant">Décroissant </label>
+              <input
+                type="radio"
+                id="decroissant"
+                name="price"
+                value={"desc"}
+                onChange={handleFilter}
+              />
+            </div>
+          </fieldset>
         </DropDownMenu>
       )}
     </StoreHeaderWrapper>
