@@ -85,10 +85,9 @@ export const DropDownMenu = styled.div`
 
 export const SliderContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-
-  width: 40%;
+  width: 45%;
 
   .MuiSlider-root {
     width: 65%;
@@ -99,7 +98,7 @@ export const SliderContainer = styled.div`
     color: #c0c0c0;
   }
 
-  div {
+  span {
     font-size: 15px;
     font-weight: 500;
   }
