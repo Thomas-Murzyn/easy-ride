@@ -26,7 +26,7 @@ export const StoreHeaderContainer = styled.div`
   }
 `;
 
-export const StoreCategorySelector = styled.div`
+export const StoreSelector = styled.div`
   font-size: 23px;
   background-color: #dcdcdc;
   padding: 8px;
@@ -58,6 +58,7 @@ export const DropDownMenu = styled.div`
   background-color: whitesmoke;
   position: absolute;
   top: 80px;
+  left: ${(props) => (props.filter ? "210px" : "0px")};
   font-size: 23px;
 
   display: flex;
@@ -79,7 +80,9 @@ export const DropDownMenu = styled.div`
 
   @media (max-width: 750px) {
     width: 80%;
-    top: 150px;
+    left: inherit;
+    top: 200px;
+    left: inherit;
   }
 `;
 

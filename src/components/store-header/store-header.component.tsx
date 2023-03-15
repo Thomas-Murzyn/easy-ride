@@ -1,6 +1,6 @@
 import {
   StoreHeaderContainer,
-  StoreCategorySelector,
+  StoreSelector,
   DropDownMenu,
   StoreHeaderWrapper,
   SliderContainer,
@@ -36,16 +36,24 @@ function StoreHeader({
   handleChange,
   price,
 }: StoreHeaderProp) {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   return (
     <StoreHeaderWrapper>
       <StoreHeaderContainer>
-        <StoreCategorySelector onClick={() => setShowMenu(!showMenu)}>
+        <StoreSelector onClick={() => setShowCategoryMenu(!showCategoryMenu)}>
           <FormatListBulletedRoundedIcon />
           Category
           <KeyboardArrowDownRoundedIcon />
-        </StoreCategorySelector>
+        </StoreSelector>
+
+        <StoreSelector onClick={() => setShowFilterMenu(!showFilterMenu)}>
+          <FormatListBulletedRoundedIcon />
+          Filtres
+          <KeyboardArrowDownRoundedIcon />
+        </StoreSelector>
+
         <SliderContainer>
           <span>{`Min ${price[0]}€`}</span>
           <Slider
@@ -63,8 +71,33 @@ function StoreHeader({
         </SliderContainer>
       </StoreHeaderContainer>
 
-      {showMenu && (
+      {showCategoryMenu && (
         <DropDownMenu>
+          {categories.map((category, index) => {
+            return (
+              <span
+                style={{
+                  backgroundColor: `${
+                    categoriesSelected.includes(category)
+                      ? "#c0c0c0"
+                      : "whitesmoke"
+                  }`,
+                }}
+                onClick={() => handleCategories(category)}
+                key={index}
+              >
+                {category}
+                {categoriesSelected.includes(category) && (
+                  <ClearRoundedIcon onClick={() => clearCategory(category)} />
+                )}
+              </span>
+            );
+          })}
+        </DropDownMenu>
+      )}
+
+      {showFilterMenu && (
+        <DropDownMenu filter="true">
           {categories.map((category, index) => {
             return (
               <span
