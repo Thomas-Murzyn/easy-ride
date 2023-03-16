@@ -39,6 +39,7 @@ export const selectArticlesByCategories = (
       return articlesFiltered;
     }
 
+    //eslint-disable-next-line
     return articles.articles.filter((article) => {
       if (
         price[0] <= Number(article.price) &&
