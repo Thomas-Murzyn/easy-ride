@@ -5,10 +5,10 @@ describe("Home", () => {
   test("Home renders correctly", () => {
     render(<Home />);
 
-    const headingElement = screen.getByRole("heading", {
+    const heading = screen.getByRole("heading", {
       name: /vendez vos vieux vélos en toutes simplicité/i,
     });
-    expect(headingElement).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
 
     const shopButton = screen.getByRole("button", { name: /acheter/i });
     expect(shopButton).toBeInTheDocument();
