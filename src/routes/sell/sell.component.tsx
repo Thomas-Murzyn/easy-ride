@@ -4,7 +4,7 @@ import UserStoreArticles from "../../components/user-articles-store/user-article
 
 const Sell = () => {
   return (
-    <SellContainer>
+    <SellContainer data-testid="sell-component">
       <SellForm />
       <UserStoreArticles />
     </SellContainer>
