@@ -22,7 +22,7 @@ function Header() {
           <NavLink to="/sign-in">Se connecter</NavLink>
         </NavigationContainer>
       </HeaderContainer>
-      <Outlet />
+      <Outlet data-testid="outlet-component" />
     </>
   );
 }
