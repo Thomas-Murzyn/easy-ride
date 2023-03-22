@@ -29,7 +29,11 @@ const FormField: FC<FormInputProps> = ({
         <LabelFile htmlFor={otherProps.name}>
           {label}
           <AddAPhotoRoundedIcon fontSize="large" />
-          <InputFile id={otherProps.name} {...otherProps} />
+          <InputFile
+            data-testid="form-input-file"
+            id={otherProps.name}
+            {...otherProps}
+          />
         </LabelFile>
         {imageNames && imageNames?.length > 0 && (
           <NameContainer>
