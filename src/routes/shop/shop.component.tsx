@@ -3,7 +3,7 @@ import StoreArticles from "../../components/store-articles/store-articles.compon
 
 function Shop() {
   return (
-    <ShopContainer>
+    <ShopContainer data-testid="shop-component">
       <StoreArticles />
     </ShopContainer>
   );
