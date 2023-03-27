@@ -9,9 +9,8 @@ import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBullete
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import Slider from "@mui/material/Slider";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { priceFilter } from "../store-articles/store-articles.component";
-
 import { categories } from "../sell-form/sell-form.component";
 
 export type StoreHeaderProp = {
@@ -42,6 +41,27 @@ function StoreHeader({
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
 
+  const dropDownCategoryRef = useRef<HTMLDivElement | null>(null);
+  const dropDownFilterRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleOutsideClick: EventListenerOrEventListenerObject = (e) => {
+      if (showCategoryMenu && dropDownCategoryRef.current) {
+        !dropDownCategoryRef.current.contains(e.target as Node) &&
+          setShowCategoryMenu(false);
+      } else if (showFilterMenu && dropDownFilterRef.current) {
+        !dropDownFilterRef.current.contains(e.target as Node) &&
+          setShowFilterMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showCategoryMenu, showFilterMenu]);
+
   const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === "asc") {
@@ -55,13 +75,13 @@ function StoreHeader({
   return (
     <StoreHeaderWrapper>
       <StoreHeaderContainer>
-        <StoreSelector onClick={() => setShowCategoryMenu(!showCategoryMenu)}>
+        <StoreSelector onClick={() => setShowCategoryMenu(true)}>
           <FormatListBulletedRoundedIcon />
           Category
           <KeyboardArrowDownRoundedIcon />
         </StoreSelector>
 
-        <StoreSelector onClick={() => setShowFilterMenu(!showFilterMenu)}>
+        <StoreSelector onClick={() => setShowFilterMenu(true)}>
           <FormatListBulletedRoundedIcon />
           Filtres
           <KeyboardArrowDownRoundedIcon />
@@ -85,7 +105,7 @@ function StoreHeader({
       </StoreHeaderContainer>
 
       {showCategoryMenu && (
-        <DropDownMenu>
+        <DropDownMenu ref={dropDownCategoryRef}>
           {categories.map((category, index) => {
             return (
               <span
@@ -110,7 +130,7 @@ function StoreHeader({
       )}
 
       {showFilterMenu && (
-        <DropDownMenu filter="true">
+        <DropDownMenu ref={dropDownFilterRef} filter="true">
           <fieldset>
             <legend>Prix:</legend>
             <div>
