@@ -50,3 +50,5 @@ export const selectArticlesByCategories = (
     });
   });
 };
+
+export const selectArticle = () => {};

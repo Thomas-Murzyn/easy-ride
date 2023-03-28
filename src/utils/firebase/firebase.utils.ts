@@ -172,7 +172,9 @@ export const onArticles = async (
       (snapshot) => {
         const arr: Article[] = [];
         snapshot.forEach((doc) => {
-          arr.push(doc.data() as Article);
+          const data = doc.data();
+          data.id = doc.id;
+          arr.push(data as Article);
         });
         setArticles(arr);
         resolve(unsubscribe);
