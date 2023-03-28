@@ -14,17 +14,16 @@ function UserStoreArticles() {
     selectUserArticles(currentUser?.userId as string)
   );
 
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 100000000);
+  };
+
   return (
     <>
       <UserStoreTitle>Vos articles</UserStoreTitle>
       <UserStoreContainer>
         {articles.map((article) => {
-          return (
-            <StoreArticle
-              key={Math.floor(Math.random() * 10000)}
-              article={article}
-            />
-          );
+          return <StoreArticle key={getRandomNumber()} article={article} />;
         })}
       </UserStoreContainer>
     </>
