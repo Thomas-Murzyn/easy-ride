@@ -1,5 +1,5 @@
 function Article() {
-  return <div>Articles</div>;
+  return <div>Article</div>;
 }
 
 export default Article;
