@@ -16,7 +16,7 @@ const Sell = () => {
           </SellContainer>
         }
       />
-      <Route path=":category" element={<Article />} />
+      <Route path="*" element={<Article />} />
     </Routes>
   );
 };

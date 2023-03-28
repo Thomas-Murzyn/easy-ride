@@ -1,5 +1,11 @@
+import { ArticleWrapper } from "./article.styles";
+
 function Article() {
-  return <div>Article</div>;
+  return (
+    <ArticleWrapper>
+      <div>Article</div>
+    </ArticleWrapper>
+  );
 }
 
 export default Article;
