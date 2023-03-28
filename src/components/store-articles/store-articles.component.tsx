@@ -56,6 +56,10 @@ function StoreArticles() {
     );
   };
 
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 100000000);
+  };
+
   if (filter === "asc") {
     return (
       <StoreContainer>
@@ -72,12 +76,7 @@ function StoreArticles() {
           {articles
             .sort((a, b) => Number(a.price) - Number(b.price))
             .map((article) => {
-              return (
-                <StoreArticle
-                  key={Math.floor(Math.random() * 10000)}
-                  article={article}
-                />
-              );
+              return <StoreArticle key={getRandomNumber()} article={article} />;
             })}
         </StoreArticlesContainer>
       </StoreContainer>
@@ -100,12 +99,7 @@ function StoreArticles() {
           {articles
             .sort((a, b) => Number(b.price) - Number(a.price))
             .map((article) => {
-              return (
-                <StoreArticle
-                  key={Math.floor(Math.random() * 10000)}
-                  article={article}
-                />
-              );
+              return <StoreArticle key={getRandomNumber()} article={article} />;
             })}
         </StoreArticlesContainer>
       </StoreContainer>
