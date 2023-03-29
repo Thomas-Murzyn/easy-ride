@@ -1,9 +1,11 @@
 import { ArticleWrapper } from "./article.styles";
 import { selectArticle } from "../../app/features/articles/articles.selector";
 import { useAppSelector } from "../../app/hooks/hooks";
+import { useParams } from "react-router-dom";
 
 function Article() {
-  const article = useAppSelector(selectArticle("4nHQwnr7Ejz0XHU8dY45"));
+  const { id } = useParams();
+  const article = useAppSelector(selectArticle(`${id}`));
 
   if (article) {
     return (

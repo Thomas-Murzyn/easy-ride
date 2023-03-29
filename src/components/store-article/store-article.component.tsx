@@ -5,10 +5,18 @@ import {
   ArticleInfoContainer,
 } from "./store-article.styles";
 import { Article } from "../../app/features/articles/articles.slice";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const StoreArticle = ({ article }: { article: Article }) => {
+  const location = useLocation().pathname;
+  const navigate = useNavigate();
+
+  const goToArticle = () => {
+    navigate(`${location}/article/${article.id}`);
+  };
+
   return (
-    <ArticleContainer>
+    <ArticleContainer onClick={goToArticle}>
       <ArticlePictureContainer>
         <img src={article.imageUrls[0]} alt={article.articleName} />
       </ArticlePictureContainer>

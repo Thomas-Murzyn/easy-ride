@@ -16,7 +16,7 @@ const Sell = () => {
           </SellContainer>
         }
       />
-      <Route path="*" element={<Article />} />
+      <Route path="/article/:id" element={<Article />} />
     </Routes>
   );
 };
