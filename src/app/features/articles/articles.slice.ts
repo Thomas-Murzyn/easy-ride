@@ -7,6 +7,7 @@ export type Article = {
   imageUrls: string[];
   price: string;
   userId: string;
+  id: string;
 };
 
 export type Articles = {

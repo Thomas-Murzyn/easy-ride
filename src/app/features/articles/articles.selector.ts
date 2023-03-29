@@ -51,4 +51,12 @@ export const selectArticlesByCategories = (
   });
 };
 
-export const selectArticle = () => {};
+export const selectArticle = (articleId: string) => {
+  return createSelector(selectArticles, (articles) => {
+    const articleFind = articles.filter((article) => {
+      return article.id === articleId;
+    });
+
+    return articleFind[0];
+  });
+};

@@ -119,12 +119,7 @@ function StoreArticles() {
 
       <StoreArticlesContainer>
         {articles.map((article) => {
-          return (
-            <StoreArticle
-              key={Math.floor(Math.random() * 10000)}
-              article={article}
-            />
-          );
+          return <StoreArticle key={getRandomNumber()} article={article} />;
         })}
       </StoreArticlesContainer>
     </StoreContainer>
