@@ -13,11 +13,12 @@ function Article() {
 
   const generateImagesContainers = (images: string[]) => {
     if (images.length >= 3) {
+      // eslint-disable-next-line
       return images.map((image, index) => {
         if (index === 0) {
           return (
             <PictureContainer sizeW={"40%"} sizeH={"40%"}>
-              <img src={article.imageUrls[index]} alt={article.articleName} />
+              <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
         }
@@ -25,7 +26,7 @@ function Article() {
         if (index === 1 || index === 2) {
           return (
             <PictureContainer sizeW={"20%"} sizeH={"20%"}>
-              <img src={article.imageUrls[index]} alt={article.articleName} />
+              <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
         }
@@ -33,11 +34,12 @@ function Article() {
     }
 
     if (images.length === 2) {
+      // eslint-disable-next-line
       return images.map((image, index) => {
         if (index === 0) {
           return (
             <PictureContainer sizeW={"40%"} sizeH={"40%"}>
-              <img src={article.imageUrls[index]} alt={article.articleName} />
+              <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
         }
@@ -45,7 +47,7 @@ function Article() {
         if (index === 1) {
           return (
             <PictureContainer sizeW={"40%"} sizeH={"40%"}>
-              <img src={article.imageUrls[index]} alt={article.articleName} />
+              <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
         }
@@ -67,9 +69,7 @@ function Article() {
     return (
       <ArticleWrapper>
         <ArticlePictureContainer>
-          <PictureContainer wsize={"100%"} hsize={"100%"}>
-            <img src={article.imageUrls[0]} alt={article.articleName} />
-          </PictureContainer>
+          {generateImagesContainers(article.imageUrls)}
         </ArticlePictureContainer>
       </ArticleWrapper>
     );

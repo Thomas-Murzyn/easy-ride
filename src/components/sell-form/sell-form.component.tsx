@@ -41,37 +41,46 @@ function SellForm() {
     setImageNames([]);
   };
 
-  const uploadImage = async () => {
-    const imageUrls: string[] = [];
-    images.map(async (image, index) => {
-      try {
-        const data = new FormData();
-        data.append("file", image);
-        data.append("upload_preset", "murzynt");
-        data.append("cloud_name", "dkwgtzzxc");
-        const response = await fetch(
-          "  https://api.cloudinary.com/v1_1/dkwgtzzxc/image/upload",
-          {
+  const uploadImage = () => {
+    const processImageUpload: Promise<string[]> = new Promise(
+      (resolve, reject) => {
+        const imageUrls: string[] = [];
+        // eslint-disable-next-line
+        images.map((image, index) => {
+          const data = new FormData();
+          data.append("file", image);
+          data.append("upload_preset", "murzynt");
+          data.append("cloud_name", "dkwgtzzxc");
+          fetch("  https://api.cloudinary.com/v1_1/dkwgtzzxc/image/upload", {
             method: "post",
             body: data,
-          }
-        );
-        const { url } = await response.json();
-        imageUrls.push(url);
-        if (index === images.length - 1) {
-          await addItemToSell(
-            articleName,
-            category,
-            price,
-            description,
-            imageUrls,
-            userId as string
-          );
-          dispatch(fetchArticles);
-        }
-      } catch (error) {
-        console.error(error);
+          })
+            .then((response) => {
+              response.json().then((response) => {
+                const { url } = response;
+                imageUrls.push(url);
+                if (index === images.length - 1) resolve(imageUrls);
+              });
+            })
+            .catch((error) => {
+              reject("Failed to upload image.");
+            });
+        });
       }
+    );
+
+    processImageUpload.then((result) => {
+      const imageUrls = [...result];
+
+      addItemToSell(
+        articleName,
+        category,
+        price,
+        description,
+        imageUrls,
+        userId as string
+      );
+      dispatch(fetchArticles);
     });
   };
 
@@ -111,7 +120,7 @@ function SellForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await uploadImage();
+    uploadImage();
     resetFormField();
   };
 
