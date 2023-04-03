@@ -7,7 +7,7 @@ export const ArticleWrapper = styled.div`
   justify-content: center;
 `;
 
-export const ArticlePictureContainer = styled.div`
+export const MainPictureContainer = styled.div`
   margin: 150px 0px;
   width: 500px;
   height: 500px;
@@ -15,18 +15,13 @@ export const ArticlePictureContainer = styled.div`
   -webkit-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   border-radius: 10px;
-  width: 700px;
+  width: 60%;
   height: 500px;
-`;
-
-export const PictureContainer = styled.div`
-  width: ${({ wsize }) => wsize && wsize};
-  height: ${({ hsize }) => hsize && hsize};
 
   img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
     border-radius: 10px;
+    object-fit: cover;
   }
 `;
