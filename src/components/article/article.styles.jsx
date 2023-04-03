@@ -20,7 +20,7 @@ export const ArticlePictureContainer = styled.div`
 `;
 
 export const PictureContainer = styled.div`
-  width: ${({ hsize }) => hsize && hsize};
+  width: ${({ wsize }) => wsize && wsize};
   height: ${({ hsize }) => hsize && hsize};
 
   img {

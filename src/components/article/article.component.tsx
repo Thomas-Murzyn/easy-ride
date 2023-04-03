@@ -17,7 +17,7 @@ function Article() {
       return images.map((image, index) => {
         if (index === 0) {
           return (
-            <PictureContainer sizeW={"40%"} sizeH={"40%"}>
+            <PictureContainer wsize={"40%"} hsize={"40%"}>
               <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
@@ -25,7 +25,7 @@ function Article() {
 
         if (index === 1 || index === 2) {
           return (
-            <PictureContainer sizeW={"20%"} sizeH={"20%"}>
+            <PictureContainer wsize={"20%"} hsize={"20%"}>
               <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
@@ -38,7 +38,7 @@ function Article() {
       return images.map((image, index) => {
         if (index === 0) {
           return (
-            <PictureContainer sizeW={"40%"} sizeH={"40%"}>
+            <PictureContainer wsize={"40%"} hsize={"40%"}>
               <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
@@ -46,7 +46,7 @@ function Article() {
 
         if (index === 1) {
           return (
-            <PictureContainer sizeW={"40%"} sizeH={"40%"}>
+            <PictureContainer wsize={"40%"} hsize={"40%"}>
               <img src={images[index]} alt={article.articleName} />
             </PictureContainer>
           );
@@ -57,7 +57,7 @@ function Article() {
     if (images.length === 1) {
       return images.map((image, index) => {
         return (
-          <PictureContainer size-w={"100%"} size-h={"100%"}>
+          <PictureContainer wsize={"100%"} hsize={"100%"}>
             <img src={article.imageUrls[index]} alt={article.articleName} />
           </PictureContainer>
         );
