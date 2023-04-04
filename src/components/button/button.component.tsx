@@ -1,9 +1,10 @@
-import { HomeButton, SubmitButton } from "./button.styles";
+import { HomeButton, SubmitButton, BuyButton } from "./button.styles";
 import { ButtonHTMLAttributes } from "react";
 
 export enum ButtonType {
   ButtonHome = "ButtonHome",
   ButtonSubmit = "ButtonSubmit",
+  BuyButton = "BuyButton",
 }
 
 type ButtonProps = {
@@ -15,6 +16,7 @@ const getButton = (buttonStyle: ButtonType) => {
   return {
     [ButtonType.ButtonHome]: HomeButton,
     [ButtonType.ButtonSubmit]: SubmitButton,
+    [ButtonType.BuyButton]: BuyButton,
   }[buttonStyle];
 };
 

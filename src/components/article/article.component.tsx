@@ -3,6 +3,7 @@ import { selectArticle } from "../../app/features/articles/articles.selector";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { useParams } from "react-router-dom";
 import Carousel from "../carousel/carousel.component";
+import SideMenu from "../side-menu/side-menu.component";
 
 function Article() {
   const { id } = useParams();
@@ -15,6 +16,7 @@ function Article() {
           articleName={article.articleName}
           images={article.imageUrls}
         />
+        <SideMenu article={article} />
       </ArticleWrapper>
     );
   }
