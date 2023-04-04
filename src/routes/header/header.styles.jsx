@@ -10,6 +10,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   background-color: #ffffff;
   position: fixed;
+  top: 0px;
   z-index: 99999;
 `;
 

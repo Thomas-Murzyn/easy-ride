@@ -24,7 +24,7 @@ export const PictureContainer = styled.div`
 
 export const ArrowBack = styled(ArrowBackIosIcon)`
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 5px;
   color: whitesmoke;
   cursor: pointer;
@@ -32,7 +32,7 @@ export const ArrowBack = styled(ArrowBackIosIcon)`
 
 export const ArrowForward = styled(ArrowForwardIosIcon)`
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 5px;
   color: whitesmoke;
   cursor: pointer;
