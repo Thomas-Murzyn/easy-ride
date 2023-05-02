@@ -2,9 +2,14 @@ import { SideMenuContainer, SideMenuSection } from "./side-menu.styles";
 import { Article } from "../../app/features/articles/articles.slice";
 import Button from "../button/button.component";
 import { ButtonType } from "../button/button.component";
+import React from "react";
 
-function SideMenu(props: { article: Article }) {
-  const article = props.article;
+export type SideMenuProps = {
+  openModal: () => void;
+  article: Article;
+};
+
+function SideMenu({ article, openModal }: SideMenuProps) {
   const { articleName, description, price } = article;
   return (
     <SideMenuContainer>
@@ -17,7 +22,9 @@ function SideMenu(props: { article: Article }) {
       <SideMenuSection>
         <span>{description}</span>
       </SideMenuSection>
-      <Button buttonStyle={ButtonType.BuyButton}>Faire une offre</Button>
+      <Button onClick={openModal} buttonStyle={ButtonType.BuyButton}>
+        Faire une offre
+      </Button>
     </SideMenuContainer>
   );
 }

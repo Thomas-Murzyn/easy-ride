@@ -14,7 +14,7 @@ describe("Side-menu", () => {
   };
 
   test("renders correctly", () => {
-    render(<SideMenu article={article} />);
+    render(<SideMenu openModal={() => {}} article={article} />);
 
     expect(screen.getByText("Bmx")).toBeInTheDocument();
     expect(screen.getByText("Bmx haut de gamme")).toBeInTheDocument();
