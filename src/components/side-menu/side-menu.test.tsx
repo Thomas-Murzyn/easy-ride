@@ -11,6 +11,7 @@ describe("Side-menu", () => {
     price: "400",
     userId: "12345",
     id: "toto",
+    offers: [],
   };
 
   test("renders correctly", () => {

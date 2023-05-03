@@ -8,6 +8,7 @@ export type Article = {
   price: string;
   userId: string;
   id: string;
+  offers: number[];
 };
 
 export type Articles = {

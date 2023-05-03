@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Carousel from "../carousel/carousel.component";
 import SideMenu from "../side-menu/side-menu.component";
 import Modal from "../modal/modal.component";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormField from "../form-input/form-field.component";
 
 function Article() {
@@ -13,6 +13,11 @@ function Article() {
   const article = useAppSelector(selectArticle(`${id}`));
   const [show, setShow] = useState(false);
   const [offer, setOffer] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
 
   const openModal = () => {
     setShow(true);
@@ -43,21 +48,23 @@ function Article() {
           images={article.imageUrls}
         />
         <SideMenu openModal={openModal} article={article} />
-        <Modal
-          title={"Faire une offre"}
-          show={show}
-          closeModal={closeModal}
-          handleSubmit={handleSubmit}
-        >
-          <FormField
-            name="offer"
-            type="number"
-            label="Quel offre souhaitez-vous faire ?"
-            required
-            value={offer}
-            onChange={handleFormFields}
-          />
-        </Modal>
+        {isLoading && (
+          <Modal
+            title={"Faire une offre"}
+            show={show}
+            closeModal={closeModal}
+            handleSubmit={handleSubmit}
+          >
+            <FormField
+              name="offer"
+              type="number"
+              label="Quel offre souhaitez-vous faire ?"
+              required
+              value={offer}
+              onChange={handleFormFields}
+            />
+          </Modal>
+        )}
       </ArticleWrapper>
     );
   }
