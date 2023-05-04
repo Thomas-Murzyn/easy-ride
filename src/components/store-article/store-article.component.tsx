@@ -3,6 +3,7 @@ import {
   ArticleInfo,
   ArticlePictureContainer,
   ArticleInfoContainer,
+  NotificationLogo,
 } from "./store-article.styles";
 import { Article } from "../../app/features/articles/articles.slice";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -23,6 +24,9 @@ const StoreArticle = ({ article }: { article: Article }) => {
       <ArticleInfoContainer>
         <ArticleInfo>{article.articleName}</ArticleInfo>
         <ArticleInfo>Prix : {article.price}€</ArticleInfo>
+        {article.offers.length > 0 && (
+          <NotificationLogo>{article.offers.length}</NotificationLogo>
+        )}
       </ArticleInfoContainer>
     </ArticleContainer>
   );

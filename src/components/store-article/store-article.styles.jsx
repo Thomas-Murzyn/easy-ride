@@ -2,6 +2,19 @@ import styled from "styled-components";
 
 const mainColor = "grey";
 
+export const NotificationLogo = styled.div`
+  background-color: red;
+  color: whitesmoke;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+`;
+
 export const ArticleContainer = styled.div`
   width: 400px;
   margin-bottom: 30px;
@@ -22,6 +35,7 @@ export const ArticleInfoContainer = styled.div`
   padding: 0px 5px;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 `;
 
 export const ArticleInfo = styled.p`
