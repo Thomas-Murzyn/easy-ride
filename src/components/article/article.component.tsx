@@ -7,6 +7,7 @@ import SideMenu from "../side-menu/side-menu.component";
 import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
 import FormField from "../form-input/form-field.component";
+import { updateArticle } from "../../utils/firebase/firebase.utils";
 
 function Article() {
   const { id } = useParams();
@@ -36,6 +37,9 @@ function Article() {
   };
 
   const handleSubmit = () => {
+    let articleToUpdate = { ...article };
+    articleToUpdate.offers = [...articleToUpdate.offers, Number(offer)];
+    updateArticle(articleToUpdate);
     closeModal();
     resetOffer();
   };

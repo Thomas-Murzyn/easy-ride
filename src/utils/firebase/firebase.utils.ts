@@ -19,6 +19,7 @@ import {
   query,
   onSnapshot,
   Unsubscribe,
+  updateDoc,
 } from "firebase/firestore";
 
 import { Article } from "../../app/features/articles/articles.slice";
@@ -146,6 +147,29 @@ export const addItemToSell = async (
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+};
+
+export const updateArticle = async (articleToUpdate: Article) => {
+  const articleRef = doc(db, `articles`, `${articleToUpdate.id}`);
+  const {
+    articleName,
+    category,
+    description,
+    imageUrls,
+    price,
+    userId,
+    offers,
+  } = articleToUpdate;
+
+  await updateDoc(articleRef, {
+    articleName,
+    category,
+    description,
+    imageUrls,
+    price,
+    userId,
+    offers,
+  });
 };
 
 export const getArticles = async () => {
