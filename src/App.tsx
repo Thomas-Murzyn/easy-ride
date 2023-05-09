@@ -4,6 +4,7 @@ import Home from "./routes/home/home.component";
 import SignIn from "./routes/sign-in/sign-in.component";
 import Sell from "./routes/sell/sell.component";
 import Shop from "./routes/shop/shop.component";
+import UserProfil from "./routes/user-profil/user-profil.component";
 import { isUserAuthenticated } from "./app/features/user/user.slice";
 import { useAppDispatch } from "./app/hooks/hooks";
 import { useEffect, useState } from "react";
@@ -40,6 +41,7 @@ function App() {
         <Route path="shop/*" element={<Shop />} />
         <Route path="sell/*" element={<Sell />} />
         <Route path="sign-in" element={<SignIn />} />
+        <Route path="user-profil" element={<UserProfil />} />
       </Route>
     </Routes>
   );

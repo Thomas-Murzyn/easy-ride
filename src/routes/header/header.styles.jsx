@@ -30,7 +30,7 @@ export const NavigationContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 30%;
+  width: 25%;
 `;
 
 export const NavLink = styled(Link)`

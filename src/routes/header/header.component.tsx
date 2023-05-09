@@ -6,8 +6,13 @@ import {
 } from "./header.styles";
 import { Outlet } from "react-router-dom";
 import Logo from "../../assets/easyRide_logo.png";
+import { selectCurrentUser } from "../../app/features/user/user.selector";
+import { useAppSelector } from "../../app/hooks/hooks";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Header() {
+  const user = useAppSelector(selectCurrentUser);
+
   return (
     <>
       <HeaderContainer>
@@ -19,7 +24,13 @@ function Header() {
           <NavLink to="/">Accueil</NavLink>
           <NavLink to="/shop">Acheter</NavLink>
           <NavLink to="/sell">Vendre</NavLink>
-          <NavLink to="/sign-in">Se connecter</NavLink>
+          {user ? (
+            <NavLink to="/user-profil">
+              <AccountCircleIcon fontSize="large" />
+            </NavLink>
+          ) : (
+            <NavLink to="/sign-in">Se connecter</NavLink>
+          )}
         </NavigationContainer>
       </HeaderContainer>
       <Outlet data-testid="outlet-component" />
