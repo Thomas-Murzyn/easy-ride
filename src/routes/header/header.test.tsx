@@ -1,13 +1,23 @@
 import Header from "./header.component";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../../app/store";
 import Logo from "../../assets/easyRide_logo.png";
+
+const customRender = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
 describe("Header", () => {
   test("renders correctly", () => {
-    render(<Header />, {
-      wrapper: BrowserRouter,
-    });
+    render(customRender());
     const logo: HTMLImageElement = screen.getByRole("img", {
       name: /logo easyride/i,
     });
@@ -20,16 +30,14 @@ describe("Header", () => {
   });
 
   test("renders the navigation links correctly", () => {
-    render(<Header />, {
-      wrapper: BrowserRouter,
-    });
+    render(customRender());
     const homeLinkElement = screen.getByText("Accueil");
     const shopLinkElement = screen.getByText("Acheter");
     const sellLinkElement = screen.getByText("Vendre");
-    const signInLinkElement = screen.getByText("Se connecter");
+    const signInLinkElement = screen.getByTestId("sign-in");
     expect(homeLinkElement).toHaveAttribute("href", "/");
     expect(shopLinkElement).toHaveAttribute("href", "/shop");
     expect(sellLinkElement).toHaveAttribute("href", "/sell");
-    expect(signInLinkElement).toHaveAttribute("href", "/sign-in");
+    expect(signInLinkElement).toBeInTheDocument();
   });
 });

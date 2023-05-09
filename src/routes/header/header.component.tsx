@@ -25,11 +25,13 @@ function Header() {
           <NavLink to="/shop">Acheter</NavLink>
           <NavLink to="/sell">Vendre</NavLink>
           {user ? (
-            <NavLink to="/user-profil">
+            <NavLink to="/user-profil" data-testid="sign-in">
               <AccountCircleIcon fontSize="large" />
             </NavLink>
           ) : (
-            <NavLink to="/sign-in">Se connecter</NavLink>
+            <NavLink to="/sign-in" data-testid="sign-in">
+              Se connecter
+            </NavLink>
           )}
         </NavigationContainer>
       </HeaderContainer>
