@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   User,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 
 import {
@@ -67,6 +68,16 @@ export const signInWithEmail = async (email: string, password: string) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const signOutUser = async () => {
+  return signOut(auth)
+    .then(() => {
+      return true;
+    })
+    .catch((error) => {
+      return false;
+    });
 };
 
 type AdditionalContent = {

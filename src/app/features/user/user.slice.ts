@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { UserData } from "../../../utils/firebase/firebase.utils";
 import {
   signInWithEmail,
   createUserDocumentFromAuth,
   createUserWithEmail,
   getCurrentUser,
+  UserData,
+  signOutUser,
 } from "../../../utils/firebase/firebase.utils";
 
 export type UserState = {
@@ -71,13 +72,23 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+export const signOutCurrentUser = createAsyncThunk("user/signout", async () => {
+  const isSignedOut = await signOutUser();
+
+  if (isSignedOut) {
+    return {} as UserData;
+  }
+});
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      fetchUser.pending || isUserAuthenticated.pending,
+      fetchUser.pending ||
+        isUserAuthenticated.pending ||
+        signOutCurrentUser.pending,
       (state) => {
         state.isLoading = true;
       }
@@ -106,6 +117,15 @@ export const userSlice = createSlice({
     builder.addCase(isUserAuthenticated.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = {} as UserData;
+      state.error = action.error.message || "Something went wrong";
+    });
+    builder.addCase(signOutCurrentUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.currentUser = {} as UserData;
+      state.error = "";
+    });
+    builder.addCase(signOutCurrentUser.rejected, (state, action) => {
+      state.isLoading = false;
       state.error = action.error.message || "Something went wrong";
     });
   },

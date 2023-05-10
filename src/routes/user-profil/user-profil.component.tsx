@@ -3,16 +3,22 @@ import {
   UserNotificationLogo,
   UserButton,
 } from "./user-profil.styles";
-import { useAppSelector } from "../../app/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks/hooks";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 import { selectUserArticles } from "../../app/features/articles/articles.selector";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { signOutCurrentUser } from "../../app/features/user/user.slice";
 
 function UserProfil() {
   const user = useAppSelector(selectCurrentUser);
   const articles = useAppSelector(selectUserArticles(user?.userId as string));
+  const dispatch = useAppDispatch();
+
+  const signOut = () => {
+    dispatch(signOutCurrentUser());
+  };
 
   if (user && articles) {
     const offers = articles.filter((article) => {
@@ -33,7 +39,7 @@ function UserProfil() {
           <UserNotificationLogo>{offers.length}</UserNotificationLogo>
         </UserButton>
 
-        <UserButton>
+        <UserButton onClick={signOut}>
           <LogoutIcon />
           Déconnexion
         </UserButton>
