@@ -24,7 +24,7 @@ function Header() {
           <NavLink to="/">Accueil</NavLink>
           <NavLink to="/shop">Acheter</NavLink>
           <NavLink to="/sell">Vendre</NavLink>
-          {user ? (
+          {user?.displayName ? (
             <NavLink to="/user-profil" data-testid="sign-in">
               <AccountCircleIcon fontSize="large" />
             </NavLink>

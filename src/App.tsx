@@ -41,7 +41,7 @@ function App() {
         <Route path="shop/*" element={<Shop />} />
         <Route path="sell/*" element={<Sell />} />
         <Route path="sign-in" element={<SignIn />} />
-        <Route path="user-profil" element={<UserProfil />} />
+        <Route path="user-profil/*" element={<UserProfil />} />
       </Route>
     </Routes>
   );
