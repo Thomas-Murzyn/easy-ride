@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const UserArticlesWrapper = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 100px auto 0 auto;
   display: flex;
   flex-direction: column;
@@ -9,46 +9,38 @@ export const UserArticlesWrapper = styled.div`
 `;
 
 export const UserArticle = styled.div`
-  height: 160px;
   border: 1px solid gray;
   padding: 10px;
   margin-top: 30px;
-  width: 60%;
+  width: 80%;
   display: flex;
   align-items: center;
+
+  @media (max-width: 1000px) {
+    width: 90%;
+  }
+
+  span {
+    font-size: 20px;
+    @media (max-width: 900px) {
+      font-size: 15px;
+    }
+  }
 `;
 
 export const UserArticleInfo = styled.div`
-  margin-top: 20px;
   padding: 0px 20px;
-  height: 100%;
-  width: 20%;
+  height: 150px;
+  width: 40%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 10px;
-
-  span {
-    font-size: 20px;
-  }
-`;
-
-export const UserArticleDetails = styled.div`
-  margin-top: 20px;
-  padding: 0px 20px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  span {
-    font-size: 20px;
-  }
 `;
 
 export const UserArticleImage = styled.div`
   width: 250px;
   height: 150px;
-
   border-radius: 5px;
 
   img {
@@ -57,4 +49,19 @@ export const UserArticleImage = styled.div`
     object-fit: cover;
     border-radius: 5px;
   }
+`;
+
+export const OfferContainer = styled.div`
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const OfferInfo = styled.div`
+  background-color: lightgray;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;

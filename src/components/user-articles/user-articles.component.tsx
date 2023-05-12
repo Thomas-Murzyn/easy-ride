@@ -3,17 +3,27 @@ import {
   UserArticle,
   UserArticleImage,
   UserArticleInfo,
-  UserArticleDetails,
+  OfferInfo,
+  OfferContainer,
 } from "./user-articles.styles";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { selectUserArticles } from "../../app/features/articles/articles.selector";
 import { Article } from "../../app/features/articles/articles.slice";
+import Button, { ButtonType } from "../button/button.component";
+import Modal from "../modal/modal.component";
 
 function UserArticles() {
   const { userId } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [offers, setOffers] = useState<number[]>();
 
   const articles = useAppSelector(selectUserArticles(userId as string));
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const getArticleWithOffers = (array: Article[]) => {
     let articlesOffers = [];
@@ -25,6 +35,11 @@ function UserArticles() {
     }
 
     return articlesOffers;
+  };
+
+  const handleOffers = (articleOffers: number[]) => {
+    setOffers(articleOffers);
+    setShowModal(true);
   };
 
   return (
@@ -40,17 +55,33 @@ function UserArticles() {
               <span>Article : {article.articleName}</span>
               <span>Categorie : {article.category}</span>
               <span>Prix : {article.price}€</span>
-            </UserArticleInfo>
-            <UserArticleDetails>
               <span>Description : {article.description}</span>
-              <span>Offres sur cette article :</span>
-              {article.offers.map((item, index) => {
-                return <span key={index}>Une offre à {item}€</span>;
-              })}
-            </UserArticleDetails>
+            </UserArticleInfo>
+            <Button
+              onClick={() => {
+                handleOffers(article.offers);
+              }}
+              buttonStyle={ButtonType.ButtonSubmit}
+            >
+              Voir les offres
+            </Button>
           </UserArticle>
         );
       })}
+      <Modal show={showModal} title="Liste des offres" closeModal={closeModal}>
+        <OfferContainer>
+          {offers?.map((item, index) => {
+            return (
+              <OfferInfo key={index}>
+                Trotro à fait une offre à {item}{" "}
+                <Button buttonStyle={ButtonType.ButtonSubmit}>
+                  Accepter l'offre
+                </Button>
+              </OfferInfo>
+            );
+          })}
+        </OfferContainer>
+      </Modal>
     </UserArticlesWrapper>
   );
 }

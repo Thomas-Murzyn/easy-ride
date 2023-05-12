@@ -14,7 +14,7 @@ export type ModalProps = {
   show: boolean;
   title: string;
   closeModal: () => void;
-  handleSubmit: () => void;
+  handleSubmit?: () => void;
 };
 
 function Modal({
@@ -36,7 +36,7 @@ function Modal({
         </ModalHeader>
         <ModalBody>{children}</ModalBody>
         <ModalFooter>
-          <button onClick={handleSubmit}>Valider</button>
+          {handleSubmit && <button onClick={handleSubmit}>Valider</button>}
           <button onClick={closeModal}>Close</button>
         </ModalFooter>
       </ModalContent>
