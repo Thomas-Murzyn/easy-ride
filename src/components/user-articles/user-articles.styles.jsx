@@ -6,18 +6,43 @@ export const UserArticlesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+
+  h1 {
+    @media (max-width: 850px) {
+      font-size: 27px;
+    }
+
+    @media (max-width: 700px) {
+      font-size: 23px;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const UserArticle = styled.div`
   border: 1px solid gray;
   padding: 10px;
   margin-top: 30px;
-  width: 80%;
+  width: 50%;
   display: flex;
   align-items: center;
 
+  @media (max-width: 1500px) {
+    width: 70%;
+  }
+
   @media (max-width: 1000px) {
     width: 90%;
+  }
+
+  @media (max-width: 800px) {
+    width: 300px;
+    flex-direction: column;
+    gap: 20px;
   }
 
   span {
@@ -36,12 +61,23 @@ export const UserArticleInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+
+  @media (max-width: 800px) {
+    height: fit-content;
+    flex-direction: column;
+
+    width: 100%;
+  }
 `;
 
 export const UserArticleImage = styled.div`
   width: 250px;
   height: 150px;
   border-radius: 5px;
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 
   img {
     width: 100%;
