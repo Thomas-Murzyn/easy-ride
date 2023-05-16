@@ -30,6 +30,10 @@ export const ModalContent = styled.div`
   box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
+
+  @media (max-width: 600px) {
+    width: 400px;
+  }
 `;
 
 export const ModalHeader = styled.div`

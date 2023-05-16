@@ -92,6 +92,15 @@ export const OfferContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  @media (max-width: 600px) {
+    font-size: 15px !important;
+
+    button {
+      font-size: 15px !important;
+      padding: 5px 8px !important;
+    }
+  }
 `;
 
 export const OfferInfo = styled.div`
