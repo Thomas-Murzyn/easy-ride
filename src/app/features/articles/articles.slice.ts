@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type Offer = {
+  userId: string;
+  name: string;
+  message?: string;
+  amount: number;
+};
+
 export type Article = {
   articleName: string;
   category: string;
@@ -8,7 +15,7 @@ export type Article = {
   price: string;
   userId: string;
   id: string;
-  offers: number[];
+  offers: Offer[];
 };
 
 export type Articles = {

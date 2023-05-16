@@ -8,13 +8,15 @@ import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
 import FormField from "../form-input/form-field.component";
 import { updateArticle } from "../../utils/firebase/firebase.utils";
+import { selectCurrentUser } from "../../app/features/user/user.selector";
 
 function Article() {
   const { id } = useParams();
   const article = useAppSelector(selectArticle(`${id}`));
+  const user = useAppSelector(selectCurrentUser);
   const [show, setShow] = useState(false);
-  const [offer, setOffer] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,19 +31,24 @@ function Article() {
   };
 
   const handleFormFields = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOffer(e.target.value);
+    setAmount(e.target.value);
   };
 
   const resetOffer = () => {
-    setOffer("");
+    setAmount("");
   };
 
   const handleSubmit = () => {
-    let articleToUpdate = { ...article };
-    articleToUpdate.offers = [...articleToUpdate.offers, Number(offer)];
-    updateArticle(articleToUpdate);
-    closeModal();
-    resetOffer();
+    if (user) {
+      let articleToUpdate = { ...article };
+      articleToUpdate.offers = [
+        ...articleToUpdate.offers,
+        { userId: user.userId, name: user.displayName, amount: Number(amount) },
+      ];
+      updateArticle(articleToUpdate);
+      closeModal();
+      resetOffer();
+    }
   };
 
   if (article) {
@@ -64,7 +71,7 @@ function Article() {
               type="number"
               label="Quel offre souhaitez-vous faire ?"
               required
-              value={offer}
+              value={amount}
               onChange={handleFormFields}
             />
           </Modal>

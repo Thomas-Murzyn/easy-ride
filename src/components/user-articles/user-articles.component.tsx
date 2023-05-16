@@ -13,11 +13,12 @@ import { selectUserArticles } from "../../app/features/articles/articles.selecto
 import { Article } from "../../app/features/articles/articles.slice";
 import Button, { ButtonType } from "../button/button.component";
 import Modal from "../modal/modal.component";
+import { Offer } from "../../app/features/articles/articles.slice";
 
 function UserArticles() {
   const { userId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [offers, setOffers] = useState<number[]>();
+  const [offers, setOffers] = useState<Offer[]>();
 
   const articles = useAppSelector(selectUserArticles(userId as string));
 
@@ -37,7 +38,7 @@ function UserArticles() {
     return articlesOffers;
   };
 
-  const handleOffers = (articleOffers: number[]) => {
+  const handleOffers = (articleOffers: Offer[]) => {
     setOffers(articleOffers);
     setShowModal(true);
   };
@@ -45,9 +46,9 @@ function UserArticles() {
   return (
     <UserArticlesWrapper>
       <h1>Vous avez de nouvelles offres sur les articles suivants :</h1>
-      {getArticleWithOffers(articles).map((article, index) => {
+      {getArticleWithOffers(articles).map((article) => {
         return (
-          <UserArticle key={index}>
+          <UserArticle key={article.id}>
             <UserArticleImage>
               <img src={article.imageUrls[0]} alt={article.articleName} />
             </UserArticleImage>
@@ -70,10 +71,10 @@ function UserArticles() {
       })}
       <Modal show={showModal} title="Liste des offres" closeModal={closeModal}>
         <OfferContainer>
-          {offers?.map((item, index) => {
+          {offers?.map((item) => {
             return (
-              <OfferInfo key={index}>
-                Trotro à fait une offre à {item}{" "}
+              <OfferInfo key={item.userId}>
+                {item.name} à fait une offre à {item.amount}€.{" "}
                 <Button buttonStyle={ButtonType.ButtonSubmit}>
                   Accepter l'offre
                 </Button>

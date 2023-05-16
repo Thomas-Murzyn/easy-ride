@@ -88,10 +88,15 @@ export const UserArticleImage = styled.div`
 `;
 
 export const OfferContainer = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  button {
+    font-size: 17px !important;
+    padding: 5px 8px !important;
+  }
 
   @media (max-width: 600px) {
     font-size: 15px !important;
