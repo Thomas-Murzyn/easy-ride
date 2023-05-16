@@ -20,6 +20,17 @@ export const PictureContainer = styled.div`
     border-radius: 10px;
     object-fit: cover;
   }
+
+  @media screen and (max-width: 1300px) {
+    width: 60%;
+
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+  }
 `;
 
 export const ArrowBack = styled(ArrowBackIosIcon)`

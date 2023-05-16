@@ -6,4 +6,12 @@ export const ArticleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
+
+  padding: 10px;
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+  }
 `;

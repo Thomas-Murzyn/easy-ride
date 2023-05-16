@@ -18,16 +18,33 @@ export const SideMenuContainer = styled.div`
   & > *:not(:last-child) {
     border-bottom: 1px solid ${mainColor};
   }
+
+  @media screen and (max-width: 1300px) {
+    width: 25%;
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    flex-direction: row;
+    height: 200px;
+
+    button {
+      font-size: 15px !important;
+      padding: 5px 8px !important;
+    }
+  }
 `;
 
 export const SideMenuSection = styled.div`
-  display: flex;
-  flex-direction: column;
   text-align: center;
-  gap: 10px;
   color: ${mainColor};
   font-weight: 500;
   font-size: 23px;
   padding: 20px 0px;
   width: 100%;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    font-size: 15px;
+  }
 `;
