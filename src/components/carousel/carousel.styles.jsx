@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export const PictureContainer = styled.div`
   position: relative;
-  margin: 150px 0px;
+  /* margin: 150px 0px; */
   width: 500px;
   height: 500px;
   box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
@@ -18,7 +18,7 @@ export const PictureContainer = styled.div`
     height: 100%;
     width: 100%;
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: fill;
   }
 
   @media screen and (max-width: 1300px) {

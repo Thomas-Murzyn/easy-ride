@@ -22,9 +22,11 @@ function SideMenu({ article, openModal }: SideMenuProps) {
       <SideMenuSection>
         <span>{description}</span>
       </SideMenuSection>
-      <Button onClick={openModal} buttonStyle={ButtonType.BuyButton}>
-        Faire une offre
-      </Button>
+      <SideMenuSection>
+        <Button onClick={openModal} buttonStyle={ButtonType.BuyButton}>
+          Faire une offre
+        </Button>
+      </SideMenuSection>
     </SideMenuContainer>
   );
 }

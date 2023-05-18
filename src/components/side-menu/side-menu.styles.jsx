@@ -26,12 +26,23 @@ export const SideMenuContainer = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
     flex-direction: row;
+    align-items: center;
     height: 200px;
+
+    & > *:not(:last-child) {
+      border: none;
+    }
 
     button {
       font-size: 15px !important;
       padding: 5px 8px !important;
+      margin: 0 !important;
     }
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+    display: flex;
   }
 `;
 
@@ -44,7 +55,13 @@ export const SideMenuSection = styled.div`
   width: 100%;
 
   @media screen and (max-width: 900px) {
-    width: 100%;
-    font-size: 15px;
+    font-size: 17px;
+    width: 25%;
+    background-color: red;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+    display: flex;
   }
 `;

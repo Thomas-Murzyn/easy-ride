@@ -82,7 +82,7 @@ export const UserArticleImage = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 5px;
   }
 `;
