@@ -15,3 +15,24 @@ export const ArticleWrapper = styled.div`
     padding: 70px 20px;
   }
 `;
+
+export const ArticleImageWrapper = styled.div`
+  width: 40%;
+  height: 500px;
+
+  @media screen and (max-width: 1500px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 1400px) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    height: 300px;
+  }
+`;

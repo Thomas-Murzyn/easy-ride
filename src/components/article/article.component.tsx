@@ -1,4 +1,4 @@
-import { ArticleWrapper } from "./article.styles";
+import { ArticleWrapper, ArticleImageWrapper } from "./article.styles";
 import { selectArticle } from "../../app/features/articles/articles.selector";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { useParams } from "react-router-dom";
@@ -54,10 +54,12 @@ function Article() {
   if (article) {
     return (
       <ArticleWrapper>
-        <Carousel
-          articleName={article.articleName}
-          images={article.imageUrls}
-        />
+        <ArticleImageWrapper>
+          <Carousel
+            articleName={article.articleName}
+            images={article.imageUrls}
+          />
+        </ArticleImageWrapper>
         <SideMenu openModal={openModal} article={article} />
         {isLoading && (
           <Modal

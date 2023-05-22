@@ -15,34 +15,39 @@ export const SideMenuContainer = styled.div`
   border: 1px solid ${mainColor};
   border-radius: 10px;
 
-  & > *:not(:last-child) {
-    border-bottom: 1px solid ${mainColor};
-  }
-
   @media screen and (max-width: 1300px) {
     width: 25%;
   }
 
   @media screen and (max-width: 900px) {
     width: 100%;
-    flex-direction: row;
-    align-items: center;
-    height: 200px;
-
-    & > *:not(:last-child) {
-      border: none;
-    }
-
-    button {
-      font-size: 15px !important;
-      padding: 5px 8px !important;
-      margin: 0 !important;
-    }
+    height: auto;
+    padding: 20px;
   }
 
   @media screen and (max-width: 600px) {
     font-size: 12px;
     display: flex;
+  }
+`;
+
+export const SideMenuSectionWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  & > *:not(:last-child) {
+    border-bottom: 1px solid ${mainColor};
+  }
+
+  @media screen and (max-width: 900px) {
+    flex-direction: row;
+    justify-content: center;
+    border-bottom: 1px solid ${mainColor};
+    margin-bottom: 10px;
+    & > *:not(:last-child) {
+      border-bottom: none;
+    }
   }
 `;
 
@@ -57,7 +62,7 @@ export const SideMenuSection = styled.div`
   @media screen and (max-width: 900px) {
     font-size: 17px;
     width: 25%;
-    background-color: red;
+    border-bottom: none;
   }
 
   @media screen and (max-width: 600px) {

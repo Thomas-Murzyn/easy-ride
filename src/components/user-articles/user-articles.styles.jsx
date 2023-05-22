@@ -43,6 +43,11 @@ export const UserArticle = styled.div`
     width: 300px;
     flex-direction: column;
     gap: 20px;
+    padding: 5px;
+
+    button {
+      margin: 10px 0;
+    }
   }
 
   span {
@@ -65,7 +70,6 @@ export const UserArticleInfo = styled.div`
   @media (max-width: 800px) {
     height: fit-content;
     flex-direction: column;
-
     width: 100%;
   }
 `;
