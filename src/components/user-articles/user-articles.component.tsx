@@ -14,16 +14,28 @@ import { Article } from "../../app/features/articles/articles.slice";
 import Button, { ButtonType } from "../button/button.component";
 import Modal from "../modal/modal.component";
 import { Offer } from "../../app/features/articles/articles.slice";
+import FormField from "../form-input/form-field.component";
 
 function UserArticles() {
   const { userId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [offers, setOffers] = useState<Offer[]>();
+  const [isOfferActepted, setIsOfferActepted] = useState(false);
+  const [message, setMessage] = useState("");
 
   const articles = useAppSelector(selectUserArticles(userId as string));
 
   const closeModal = () => {
+    setIsOfferActepted(false);
     setShowModal(false);
+  };
+
+  const accectOffer = () => {
+    setIsOfferActepted(true);
+  };
+
+  const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
   };
 
   const getArticleWithOffers = (array: Article[]) => {
@@ -41,6 +53,11 @@ function UserArticles() {
   const handleOffers = (articleOffers: Offer[]) => {
     setOffers(articleOffers);
     setShowModal(true);
+  };
+
+  const submitOffer = () => {
+    // Call a firebase function to send a message to the shopper
+    console.log("Submit offer; message : " + message);
   };
 
   return (
@@ -69,14 +86,51 @@ function UserArticles() {
           </UserArticle>
         );
       })}
-      <Modal show={showModal} title="Liste des offres" closeModal={closeModal}>
+      <Modal
+        handleSubmit={submitOffer}
+        show={showModal}
+        title="Liste des offres"
+        closeModal={closeModal}
+      >
         <OfferContainer>
           {offers?.map((item) => {
+            if (!isOfferActepted) {
+              return (
+                <OfferInfo key={item.userId}>
+                  <div>
+                    <span>
+                      {item.name} à fait une offre à {item.amount}€.
+                    </span>
+                    <span>Message de l'acheteur : </span>
+                    <span>{item?.message}</span>
+                  </div>
+                  <div>
+                    <Button
+                      onClick={accectOffer}
+                      buttonStyle={ButtonType.ButtonSubmit}
+                    >
+                      Accepter l'offre
+                    </Button>
+                  </div>
+                </OfferInfo>
+              );
+            }
+
             return (
               <OfferInfo key={item.userId}>
-                {item.name} à fait une offre à {item.amount}€.{" "}
-                <Button buttonStyle={ButtonType.ButtonSubmit}>
-                  Accepter l'offre
+                <FormField
+                  name="message"
+                  type="text"
+                  label="Envoyer un message à l'acheteur"
+                  required
+                  value={message}
+                  onChange={handleMessage}
+                />
+                <Button
+                  onClick={submitOffer}
+                  buttonStyle={ButtonType.ButtonSubmit}
+                >
+                  Soumettre l'offre
                 </Button>
               </OfferInfo>
             );

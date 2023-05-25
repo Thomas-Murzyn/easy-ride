@@ -113,9 +113,16 @@ export const OfferContainer = styled.div`
 `;
 
 export const OfferInfo = styled.div`
-  background-color: lightgray;
+  border: 1px solid gray;
   padding: 10px;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span {
+      margin: 5px 0px;
+    }
+  }
 `;

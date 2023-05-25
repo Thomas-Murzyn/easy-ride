@@ -17,6 +17,7 @@ function Article() {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,12 +31,17 @@ function Article() {
     setShow(false);
   };
 
-  const handleFormFields = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
+  };
+
+  const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
   };
 
   const resetOffer = () => {
     setAmount("");
+    setMessage("");
   };
 
   const handleSubmit = () => {
@@ -43,7 +49,12 @@ function Article() {
       let articleToUpdate = { ...article };
       articleToUpdate.offers = [
         ...articleToUpdate.offers,
-        { userId: user.userId, name: user.displayName, amount: Number(amount) },
+        {
+          userId: user.userId,
+          name: user.displayName,
+          amount: Number(amount),
+          message,
+        },
       ];
       updateArticle(articleToUpdate);
       closeModal();
@@ -74,7 +85,15 @@ function Article() {
               label="Quel offre souhaitez-vous faire ?"
               required
               value={amount}
-              onChange={handleFormFields}
+              onChange={handleAmount}
+            />
+            <FormField
+              name="message"
+              type="text"
+              label="Ecrire au vendeur"
+              required
+              value={message}
+              onChange={handleMessage}
             />
           </Modal>
         )}
