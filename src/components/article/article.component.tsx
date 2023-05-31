@@ -7,13 +7,14 @@ import SideMenu from "../side-menu/side-menu.component";
 import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
 import FormField from "../form-input/form-field.component";
-import { updateArticle } from "../../utils/firebase/firebase.utils";
+import { Message, sendMessage } from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 
 function Article() {
   const { id } = useParams();
   const article = useAppSelector(selectArticle(`${id}`));
   const user = useAppSelector(selectCurrentUser);
+
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
@@ -44,19 +45,20 @@ function Article() {
     setMessage("");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (user) {
-      let articleToUpdate = { ...article };
-      articleToUpdate.offers = [
-        ...articleToUpdate.offers,
-        {
-          userId: user.userId,
+      const messageToSend: Message = {
+        article: article,
+        from: {
           name: user.displayName,
-          amount: Number(amount),
-          message,
+          email: user.email,
+          userId: user.userId,
         },
-      ];
-      updateArticle(articleToUpdate);
+        date: new Date().toUTCString(),
+        messageContent: message,
+      };
+      await sendMessage(messageToSend);
+      // Call a send message function here
       closeModal();
       resetOffer();
     }
