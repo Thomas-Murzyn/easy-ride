@@ -126,3 +126,25 @@ export const OfferInfo = styled.div`
     }
   }
 `;
+
+export const ModalButtonContainer = styled.div`
+  margin: 20px auto 0 auto;
+  width: 70%;
+
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+`;
+
+export const UserMailerContainer = styled.div`
+  background-color: black;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+`;
+
+export const UserMailerTitle = styled.h4`
+  width: 100%;
+  text-align: center;
+`;

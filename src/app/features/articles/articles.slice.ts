@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Message } from "../../../utils/firebase/firebase.utils";
 
 export type Offer = {
-  userId: string;
-  name: string;
-  message?: string;
+  message: Message;
   amount: number;
 };
 

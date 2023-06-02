@@ -85,7 +85,6 @@ type AdditionalContent = {
 };
 
 export type Message = {
-  article: Article;
   from: {
     name: string;
     email: string;
@@ -100,7 +99,6 @@ export type UserData = {
   createdAt: string;
   email: string;
   userId: string;
-  messages: {};
 };
 
 export const createUserDocumentFromAuth = async (
@@ -123,7 +121,6 @@ export const createUserDocumentFromAuth = async (
         email: email as string,
         createdAt: createdAt,
         userId,
-        messages: {},
         ...additionalContent,
       };
 
@@ -166,54 +163,6 @@ export const getUserInfo = async (userId: string) => {
 export function generateUniqueId() {
   return Math.floor(Math.random() * 1000000000).toString();
 }
-
-export const sendMessage = async (message: Message) => {
-  const userInfo = await getUserInfo(message.article.userId);
-  const recipientUserRef = doc(db, `users`, `${message.article.userId}`);
-  const senderUserRef = doc(db, `users`, `${message.from.userId}`);
-
-  const recipientUserDoc = await getDoc(recipientUserRef);
-  const senderUserDoc = await getDoc(senderUserRef);
-
-  if (recipientUserDoc.exists() && senderUserDoc.exists() && userInfo) {
-    const newMessage = recipientUserDoc.data().messages;
-    const messageToSave = senderUserDoc.data().messages;
-
-    if (newMessage[message.from.userId] && messageToSave[userInfo.userId]) {
-      console.log("user exist");
-      newMessage[message.from.userId] = {
-        ...newMessage[message.from.userId],
-        [`${generateUniqueId()}`]: message,
-      };
-
-      messageToSave[userInfo.userId] = {
-        ...messageToSave[userInfo.userId],
-        [`${generateUniqueId()}`]: message,
-      };
-
-      await updateDoc(recipientUserRef, {
-        messages: newMessage,
-      });
-
-      await updateDoc(senderUserRef, {
-        messages: messageToSave,
-      });
-    }
-
-    console.log("user doesn't exist");
-    newMessage[message.from.userId] = { [`${generateUniqueId()}`]: message };
-
-    messageToSave[userInfo.userId] = { [`${generateUniqueId()}`]: message };
-
-    await updateDoc(recipientUserRef, {
-      messages: newMessage,
-    });
-
-    await updateDoc(senderUserRef, {
-      messages: messageToSave,
-    });
-  }
-};
 
 export const addItemToSell = async (
   articleName: string,

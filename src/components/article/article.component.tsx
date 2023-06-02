@@ -7,7 +7,7 @@ import SideMenu from "../side-menu/side-menu.component";
 import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
 import FormField from "../form-input/form-field.component";
-import { Message, sendMessage } from "../../utils/firebase/firebase.utils";
+import { updateArticle } from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 
 function Article() {
@@ -45,20 +45,25 @@ function Article() {
     setMessage("");
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (user) {
-      const messageToSend: Message = {
-        article: article,
-        from: {
-          name: user.displayName,
-          email: user.email,
-          userId: user.userId,
+      let articleToUpdate = { ...article };
+      articleToUpdate.offers = [
+        ...articleToUpdate.offers,
+        {
+          amount: Number(amount),
+          message: {
+            from: {
+              userId: user.userId,
+              name: user.displayName,
+              email: user.email,
+            },
+            messageContent: message,
+            date: new Date().toUTCString(),
+          },
         },
-        date: new Date().toUTCString(),
-        messageContent: message,
-      };
-      await sendMessage(messageToSend);
-      // Call a send message function here
+      ];
+      updateArticle(articleToUpdate);
       closeModal();
       resetOffer();
     }

@@ -5,6 +5,9 @@ import {
   UserArticleInfo,
   OfferInfo,
   OfferContainer,
+  ModalButtonContainer,
+  UserMailerContainer,
+  UserMailerTitle,
 } from "./user-articles.styles";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -14,28 +17,23 @@ import { Article } from "../../app/features/articles/articles.slice";
 import Button, { ButtonType } from "../button/button.component";
 import Modal from "../modal/modal.component";
 import { Offer } from "../../app/features/articles/articles.slice";
-import FormField from "../form-input/form-field.component";
+import { updateArticle } from "../../utils/firebase/firebase.utils";
+
+type ArticleOffers = {
+  articleOffers: Offer[];
+  articleId: string;
+};
 
 function UserArticles() {
   const { userId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [offers, setOffers] = useState<Offer[]>();
-  const [isOfferActepted, setIsOfferActepted] = useState(false);
-  const [message, setMessage] = useState("");
+  const [offers, setOffers] = useState<ArticleOffers>({} as ArticleOffers);
+  const [isOfferAccepted, setIsOfferAccepted] = useState<Boolean>(false);
 
   const articles = useAppSelector(selectUserArticles(userId as string));
 
   const closeModal = () => {
-    setIsOfferActepted(false);
     setShowModal(false);
-  };
-
-  const accectOffer = () => {
-    setIsOfferActepted(true);
-  };
-
-  const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value);
   };
 
   const getArticleWithOffers = (array: Article[]) => {
@@ -50,14 +48,38 @@ function UserArticles() {
     return articlesOffers;
   };
 
-  const handleOffers = (articleOffers: Offer[]) => {
-    setOffers(articleOffers);
+  const handleOffers = (articleOffers: Offer[], articleId: string) => {
+    setOffers({ articleOffers, articleId });
     setShowModal(true);
   };
 
-  const submitOffer = () => {
-    // Call a firebase function to send a message to the shopper
-    console.log("Submit offer; message : " + message);
+  const rejectOffer = async (articleId: string, offerToRemove: Offer) => {
+    const articleFound = articles.find((article) => article.id === articleId);
+
+    if (articleFound) {
+      const {
+        articleName,
+        category,
+        description,
+        imageUrls,
+        price,
+        userId,
+        id,
+      } = articleFound;
+
+      const articleToUpdate = {
+        articleName,
+        category,
+        description,
+        imageUrls,
+        price,
+        userId,
+        id,
+        offers: articleFound.offers.filter((offer) => offer !== offerToRemove),
+      };
+      await updateArticle(articleToUpdate);
+      closeModal();
+    }
   };
 
   return (
@@ -77,7 +99,7 @@ function UserArticles() {
             </UserArticleInfo>
             <Button
               onClick={() => {
-                handleOffers(article.offers);
+                handleOffers(article.offers, article.id);
               }}
               buttonStyle={ButtonType.ButtonSubmit}
             >
@@ -86,57 +108,59 @@ function UserArticles() {
           </UserArticle>
         );
       })}
-      <Modal
-        handleSubmit={submitOffer}
-        show={showModal}
-        title="Liste des offres"
-        closeModal={closeModal}
-      >
-        <OfferContainer>
-          {offers?.map((item) => {
-            if (!isOfferActepted) {
+      {offers.articleId && (
+        <Modal
+          show={showModal}
+          title="Liste des offres"
+          closeModal={closeModal}
+        >
+          <OfferContainer>
+            {offers?.articleOffers.map((item) => {
+              if (!isOfferAccepted) {
+                return (
+                  <OfferInfo key={item.message.from.userId}>
+                    <div>
+                      <span>
+                        {item.message.from.name} à fait une offre à{" "}
+                        {item.amount}
+                        €.
+                      </span>
+                      <span>Message de l'acheteur : </span>
+                      <span>{item.message.messageContent}</span>
+                    </div>
+                    <ModalButtonContainer>
+                      <Button
+                        onClick={() => setIsOfferAccepted(true)}
+                        buttonStyle={ButtonType.ButtonSubmit}
+                      >
+                        Accepter l'offre
+                      </Button>
+                      <Button
+                        onClick={() => rejectOffer(offers.articleId, item)}
+                        buttonStyle={ButtonType.ButtonSubmit}
+                      >
+                        Refuser l'offre
+                      </Button>
+                    </ModalButtonContainer>
+                  </OfferInfo>
+                );
+              }
+
               return (
-                <OfferInfo key={item.userId}>
-                  <div>
-                    <span>
-                      {item.name} à fait une offre à {item.amount}€.
-                    </span>
-                    <span>Message de l'acheteur : </span>
-                    <span>{item?.message}</span>
-                  </div>
-                  <div>
-                    <Button
-                      onClick={accectOffer}
-                      buttonStyle={ButtonType.ButtonSubmit}
-                    >
-                      Accepter l'offre
-                    </Button>
-                  </div>
+                <OfferInfo key={item.message.from.userId}>
+                  <UserMailerTitle>
+                    Veuillez prendre contact avec l'acheteur à l'adresse
+                    suivante :
+                  </UserMailerTitle>
+                  <UserMailerContainer>
+                    {item.message.from.email}
+                  </UserMailerContainer>
                 </OfferInfo>
               );
-            }
-
-            return (
-              <OfferInfo key={item.userId}>
-                <FormField
-                  name="message"
-                  type="text"
-                  label="Envoyer un message à l'acheteur"
-                  required
-                  value={message}
-                  onChange={handleMessage}
-                />
-                <Button
-                  onClick={submitOffer}
-                  buttonStyle={ButtonType.ButtonSubmit}
-                >
-                  Soumettre l'offre
-                </Button>
-              </OfferInfo>
-            );
-          })}
-        </OfferContainer>
-      </Modal>
+            })}
+          </OfferContainer>
+        </Modal>
+      )}
     </UserArticlesWrapper>
   );
 }
