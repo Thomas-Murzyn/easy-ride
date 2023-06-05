@@ -6,7 +6,10 @@ import {
 import { Article } from "../../app/features/articles/articles.slice";
 import Button from "../button/button.component";
 import { ButtonType } from "../button/button.component";
-import React from "react";
+import { selectCurrentUser } from "../../app/features/user/user.selector";
+import { useAppSelector } from "../../app/hooks/hooks";
+import { getUserInfo, UserData } from "../../utils/firebase/firebase.utils";
+import { useEffect, useState } from "react";
 
 export type SideMenuProps = {
   openModal: () => void;
@@ -15,10 +18,27 @@ export type SideMenuProps = {
 
 function SideMenu({ article, openModal }: SideMenuProps) {
   const { articleName, description, price } = article;
-  // test
+  const [articleOwner, setArticleOwner] = useState<UserData | null>(null);
+
+  const currentUSer = useAppSelector(selectCurrentUser);
+
+  useEffect(() => {
+    const getArticleOwner = async () => {
+      const response = await getUserInfo(article.userId);
+      setArticleOwner(response);
+    };
+
+    getArticleOwner();
+  }, [article.userId]);
+
   return (
     <SideMenuContainer>
       <SideMenuSectionWrapper>
+        <SideMenuSection>
+          <span>
+            Vendu par : <br /> {articleOwner?.displayName}
+          </span>
+        </SideMenuSection>
         <SideMenuSection>
           <span>{articleName}</span>
         </SideMenuSection>
@@ -30,9 +50,11 @@ function SideMenu({ article, openModal }: SideMenuProps) {
         </SideMenuSection>
       </SideMenuSectionWrapper>
 
-      <Button onClick={openModal} buttonStyle={ButtonType.ButtonSubmit}>
-        Faire une offre
-      </Button>
+      {currentUSer?.userId !== article.userId && (
+        <Button onClick={openModal} buttonStyle={ButtonType.ButtonSubmit}>
+          Faire une offre
+        </Button>
+      )}
     </SideMenuContainer>
   );
 }

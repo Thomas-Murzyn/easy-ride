@@ -1,8 +1,10 @@
 import SideMenu from "./side-menu.component";
 import { render, screen } from "@testing-library/react";
 import { Article } from "../../app/features/articles/articles.slice";
+import { Provider } from "react-redux";
+import store from "../../app/store";
 
-describe("Side-menu", () => {
+const CustomRender = () => {
   const article: Article = {
     articleName: "Bmx",
     category: "Vélo",
@@ -14,8 +16,16 @@ describe("Side-menu", () => {
     offers: [],
   };
 
+  return (
+    <Provider store={store}>
+      <SideMenu openModal={() => {}} article={article} />
+    </Provider>
+  );
+};
+
+describe("Side-menu", () => {
   test("renders correctly", () => {
-    render(<SideMenu openModal={() => {}} article={article} />);
+    render(CustomRender());
 
     expect(screen.getByText("Bmx")).toBeInTheDocument();
     expect(screen.getByText("Bmx haut de gamme")).toBeInTheDocument();
