@@ -3,10 +3,11 @@ import {
   ModalContainer,
   ModalContent,
   ModalHeader,
-  ModalTitle,
   ModalBody,
   ModalFooter,
 } from "./modal.style";
+import { Typography } from "@mui/material";
+import { CustomButton } from "../button/button.component";
 
 export type PropsWithChildren<P> = P & { children?: React.ReactNode };
 
@@ -32,12 +33,22 @@ function Modal({
     <ModalContainer show={show} onClick={closeModal}>
       <ModalContent onClick={(e: Event) => e.stopPropagation()}>
         <ModalHeader>
-          <ModalTitle>{title}</ModalTitle>
+          <Typography variant="h6">{title}</Typography>
         </ModalHeader>
         <ModalBody>{children}</ModalBody>
         <ModalFooter>
-          {handleSubmit && <button onClick={handleSubmit}>Valider</button>}
-          <button onClick={closeModal}>Close</button>
+          {handleSubmit && (
+            <CustomButton variant="contained" onClick={handleSubmit}>
+              Valider
+            </CustomButton>
+          )}
+          <CustomButton
+            variant="contained"
+            onClick={closeModal}
+            color="secondary"
+          >
+            Fermer
+          </CustomButton>
         </ModalFooter>
       </ModalContent>
     </ModalContainer>,

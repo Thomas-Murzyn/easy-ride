@@ -37,26 +37,22 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalHeader = styled.div`
+  text-align: center;
   padding: 10px;
-`;
-
-export const ModalTitle = styled.h4`
-  margin: 0;
 `;
 
 export const ModalBody = styled.div`
   padding: 10px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 export const ModalFooter = styled.div`
   padding: 10px;
-
-  button {
-    padding: 5px 10px;
-    font-size: 13px;
-    cursor: pointer;
-    margin: 0px 10px;
-  }
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 `;

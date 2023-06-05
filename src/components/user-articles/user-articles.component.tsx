@@ -14,7 +14,8 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { selectUserArticles } from "../../app/features/articles/articles.selector";
 import { Article } from "../../app/features/articles/articles.slice";
-import Button, { ButtonType } from "../button/button.component";
+import { CustomButton } from "../button/button.component";
+import { Button } from "@mui/material";
 import Modal from "../modal/modal.component";
 import { Offer } from "../../app/features/articles/articles.slice";
 import { updateArticle } from "../../utils/firebase/firebase.utils";
@@ -97,14 +98,14 @@ function UserArticles() {
               <span>Prix : {article.price}€</span>
               <span>Description : {article.description}</span>
             </UserArticleInfo>
-            <Button
+            <CustomButton
               onClick={() => {
                 handleOffers(article.offers, article.id);
               }}
-              buttonStyle={ButtonType.ButtonSubmit}
+              variant="contained"
             >
               Voir les offres
-            </Button>
+            </CustomButton>
           </UserArticle>
         );
       })}
@@ -131,15 +132,17 @@ function UserArticles() {
                     <ModalButtonContainer>
                       <Button
                         onClick={() => setIsOfferAccepted(true)}
-                        buttonStyle={ButtonType.ButtonSubmit}
+                        variant="contained"
+                        color="success"
                       >
-                        Accepter l'offre
+                        Accepter
                       </Button>
                       <Button
                         onClick={() => rejectOffer(offers.articleId, item)}
-                        buttonStyle={ButtonType.ButtonSubmit}
+                        variant="contained"
+                        color="error"
                       >
-                        Refuser l'offre
+                        Refuser
                       </Button>
                     </ModalButtonContainer>
                   </OfferInfo>

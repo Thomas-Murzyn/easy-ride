@@ -6,9 +6,9 @@ import Carousel from "../carousel/carousel.component";
 import SideMenu from "../side-menu/side-menu.component";
 import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
-import FormField from "../form-input/form-field.component";
 import { updateArticle } from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
+import { TextField, InputAdornment } from "@mui/material";
 
 function Article() {
   const { id } = useParams();
@@ -18,6 +18,7 @@ function Article() {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
+
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -86,21 +87,25 @@ function Article() {
             closeModal={closeModal}
             handleSubmit={handleSubmit}
           >
-            <FormField
-              name="offer"
+            <TextField
               type="number"
               label="Quel offre souhaitez-vous faire ?"
               required
               value={amount}
               onChange={handleAmount}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">€</InputAdornment>,
+              }}
+              aria-label="Entrer votre offre"
             />
-            <FormField
-              name="message"
+            <TextField
               type="text"
               label="Ecrire au vendeur"
               required
               value={message}
               onChange={handleMessage}
+              multiline
+              aria-label="Ecrire au vendeur"
             />
           </Modal>
         )}
