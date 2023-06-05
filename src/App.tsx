@@ -9,7 +9,6 @@ import { isUserAuthenticated } from "./app/features/user/user.slice";
 import { useAppDispatch } from "./app/hooks/hooks";
 import { useEffect, useState } from "react";
 import { fetchArticles } from "./app/features/articles/articles.slice";
-import Messages from "./routes/messages/messages.component";
 import { onArticles } from "./utils/firebase/firebase.utils";
 import { Article } from "./app/features/articles/articles.slice";
 
@@ -42,7 +41,6 @@ function App() {
         <Route path="sell/*" element={<Sell />} />
         <Route path="sign-in" element={<SignIn />} />
         <Route path="user-profil/*" element={<UserProfil />} />
-        <Route path="messages/:id" element={<Messages />} />
       </Route>
     </Routes>
   );
