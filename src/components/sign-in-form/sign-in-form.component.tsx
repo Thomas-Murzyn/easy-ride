@@ -3,7 +3,7 @@ import FormField from "../form-input/form-field.component";
 import { useState } from "react";
 import Button, { ButtonType } from "../button/button.component";
 import { fetchUser } from "../../app/features/user/user.slice";
-
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks/hooks";
 
 const defaultFormFields = {
@@ -13,6 +13,7 @@ const defaultFormFields = {
 
 function SignInForm() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -31,6 +32,7 @@ function SignInForm() {
 
     dispatch(fetchUser({ email, password, signIn: true }));
     resetFormField();
+    navigate("/sell");
   };
 
   return (

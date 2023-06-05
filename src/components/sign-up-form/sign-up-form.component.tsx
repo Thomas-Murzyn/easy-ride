@@ -2,7 +2,7 @@ import { SignUpFormContainer } from "./sign-up-form.styles";
 import FormField from "../form-input/form-field.component";
 import { useState } from "react";
 import { fetchUser } from "../../app/features/user/user.slice";
-
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks/hooks";
 import Button, { ButtonType } from "../button/button.component";
 
@@ -16,6 +16,7 @@ const defaultFormFields = {
 function SignUpForm() {
   const dispatch = useAppDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const navigate = useNavigate();
 
   const { email, displayName, password, confirmPassword } = formFields;
 
@@ -32,6 +33,7 @@ function SignUpForm() {
     event.preventDefault();
     dispatch(fetchUser({ email, password, signIn: false, displayName }));
     resetFormField();
+    navigate("/sell");
   };
 
   return (
