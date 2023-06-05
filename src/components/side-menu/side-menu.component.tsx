@@ -15,6 +15,7 @@ export type SideMenuProps = {
 
 function SideMenu({ article, openModal }: SideMenuProps) {
   const { articleName, description, price } = article;
+  // test
   return (
     <SideMenuContainer>
       <SideMenuSectionWrapper>
