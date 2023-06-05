@@ -1,10 +1,13 @@
-import { SignInFormContainer } from "./sign-in-form.styles";
-import FormField from "../form-input/form-field.component";
+import {
+  SignInFormContainer,
+  SignInTextFieldContained,
+} from "./sign-in-form.styles";
 import { useState } from "react";
-import Button, { ButtonType } from "../button/button.component";
+import { CustomButton } from "../button/button.component";
 import { fetchUser } from "../../app/features/user/user.slice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks/hooks";
+import { TextField } from "@mui/material";
 
 const defaultFormFields = {
   email: "",
@@ -38,26 +41,30 @@ function SignInForm() {
   return (
     <SignInFormContainer onSubmit={handleSubmit}>
       <h2>Se connecter</h2>
-      <FormField
-        name="email"
-        type="email"
-        label="Email"
-        required
-        value={email}
-        onChange={handleFormFields}
-      />
-      <FormField
-        name="password"
-        type="password"
-        label="Password"
-        required
-        value={password}
-        onChange={handleFormFields}
-      />
+      <SignInTextFieldContained>
+        <TextField
+          name="email"
+          type="email"
+          label="Email"
+          required
+          value={email}
+          onChange={handleFormFields}
+          variant="outlined"
+          aria-label="Enter your Email"
+        />
+        <TextField
+          name="password"
+          type="password"
+          label="Password"
+          required
+          value={password}
+          onChange={handleFormFields}
+          variant="outlined"
+          aria-label="Enter your Password"
+        />
+      </SignInTextFieldContained>
 
-      <Button buttonStyle={ButtonType.ButtonSubmit} type="submit">
-        Se connecter
-      </Button>
+      <CustomButton type="submit">Se connecter</CustomButton>
     </SignInFormContainer>
   );
 }

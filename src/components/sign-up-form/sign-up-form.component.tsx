@@ -1,10 +1,14 @@
-import { SignUpFormContainer } from "./sign-up-form.styles";
-import FormField from "../form-input/form-field.component";
+import {
+  SignUpFormContainer,
+  SignUpTextFieldContained,
+} from "./sign-up-form.styles";
+
 import { useState } from "react";
 import { fetchUser } from "../../app/features/user/user.slice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks/hooks";
-import Button, { ButtonType } from "../button/button.component";
+import { CustomButton } from "../button/button.component";
+import { TextField } from "@mui/material";
 
 const defaultFormFields = {
   email: "",
@@ -39,41 +43,41 @@ function SignUpForm() {
   return (
     <SignUpFormContainer onSubmit={handleSubmit}>
       <h2>Créer un compte</h2>
-      <FormField
-        name="displayName"
-        type="text"
-        label="Name"
-        required
-        value={displayName}
-        onChange={handleFormFields}
-      />
-      <FormField
-        name="email"
-        type="email"
-        label="Email"
-        required
-        value={email}
-        onChange={handleFormFields}
-      />
-      <FormField
-        name="password"
-        type="password"
-        label="Password"
-        required
-        value={password}
-        onChange={handleFormFields}
-      />
-      <FormField
-        name="confirmPassword"
-        type="password"
-        label="Confirm password"
-        required
-        value={confirmPassword}
-        onChange={handleFormFields}
-      />
-      <Button type="submit" buttonStyle={ButtonType.ButtonSubmit}>
-        Valider
-      </Button>
+      <SignUpTextFieldContained>
+        <TextField
+          name="displayName"
+          type="text"
+          label="Name"
+          required
+          value={displayName}
+          onChange={handleFormFields}
+        />
+        <TextField
+          name="email"
+          type="email"
+          label="Email"
+          required
+          value={email}
+          onChange={handleFormFields}
+        />
+        <TextField
+          name="password"
+          type="password"
+          label="Password"
+          required
+          value={password}
+          onChange={handleFormFields}
+        />
+        <TextField
+          name="confirmPassword"
+          type="password"
+          label="Confirm password"
+          required
+          value={confirmPassword}
+          onChange={handleFormFields}
+        />
+      </SignUpTextFieldContained>
+      <CustomButton type="submit">Valider</CustomButton>
     </SignUpFormContainer>
   );
 }

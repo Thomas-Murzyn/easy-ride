@@ -18,3 +18,10 @@ export const SignUpFormContainer = styled.form`
     margin: 30px 0px;
   }
 `;
+
+export const SignUpTextFieldContained = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
