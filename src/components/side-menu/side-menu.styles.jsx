@@ -5,7 +5,7 @@ const mainColor = "grey";
 export const SideMenuContainer = styled.div`
   width: 18%;
   height: 500px;
-  padding: 50px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +55,7 @@ export const SideMenuSection = styled.div`
   text-align: center;
   color: ${mainColor};
   font-weight: 500;
-  font-size: 23px;
+  font-size: 20px;
   padding: 20px 0px;
   width: 100%;
 
