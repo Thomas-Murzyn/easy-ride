@@ -1,12 +1,15 @@
 import { SellFormContainer, FormSell } from "./sell-form.styles";
 import FormField from "../form-input/form-field.component";
-import { useState } from "react";
-import { addItemToSell } from "../../utils/firebase/firebase.utils";
-import Button, { ButtonType } from "../../components/button/button.component";
+import { useState, useEffect } from "react";
+import {
+  addItemToSell,
+  generateUniqueId,
+} from "../../utils/firebase/firebase.utils";
+import { CustomButton } from "../../components/button/button.component";
 import { useAppSelector, useAppDispatch } from "../../app/hooks/hooks";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
-import FormSelect from "../form-input/form-select.component";
 import { fetchArticles } from "../../app/features/articles/articles.slice";
+import { TextField, MenuItem } from "@mui/material";
 
 const defaultFormFields = {
   articleName: "",
@@ -16,11 +19,11 @@ const defaultFormFields = {
 };
 
 export const categories = [
-  "vélo",
-  "trotinnette",
-  "rollers",
-  "gyroroue",
-  "squateboard",
+  "VELO",
+  "TROTTINETTE",
+  "ROLLERS",
+  "GYROROUE",
+  "SQUATEBOARD",
 ];
 
 function SellForm() {
@@ -30,7 +33,7 @@ function SellForm() {
   const [images, setImages] = useState<Blob[]>([]);
 
   const [imageNames, setImageNames] = useState<string[]>([]);
-
+  const [imageError, setImageError] = useState(false);
   const [formField, setFormField] = useState(defaultFormFields);
 
   const { articleName, category, price, description } = formField;
@@ -94,6 +97,7 @@ function SellForm() {
       const newImageNames = [...imageNames];
       newImageNames.push(files[0].name);
       setImageNames(newImageNames);
+      setImageError(false);
     }
   };
 
@@ -102,7 +106,7 @@ function SellForm() {
     setFormField({ ...formField, [name]: value });
   };
 
-  const handleSelectField = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectField = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
 
     setFormField({ ...formField, [name]: value });
@@ -113,6 +117,7 @@ function SellForm() {
       const fileImage = image as File;
       return fileImage.name !== file;
     });
+
     const newImagesNamesArr = imageNames.filter((image) => image !== file);
     setImages(newImagesArr);
     setImageNames(newImagesNamesArr);
@@ -120,6 +125,10 @@ function SellForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (images.length === 0) {
+      setImageError(true);
+      return;
+    }
     uploadImage();
     resetFormField();
   };
@@ -128,51 +137,64 @@ function SellForm() {
     <SellFormContainer>
       <FormSell onSubmit={handleSubmit}>
         <h2>Que souhaitez-vous vendre ?</h2>
-        <FormField
+        <TextField
           name="articleName"
           type="text"
           label="Nom de l'article"
           required
           value={articleName}
           onChange={handleFormFields}
+          aria-label="Ecrire le nom de l'article"
         />
 
-        <FormField
+        <TextField
           name="price"
           type="number"
           label="Prix"
           required
           value={price}
           onChange={handleFormFields}
+          aria-label="Taper le prix de l'article"
         />
-        <FormField
+        <TextField
           name="description"
           type="text"
           label="Description"
           required
           value={description}
           onChange={handleFormFields}
+          multiline
+          minRows={2}
+          aria-label="Ecrire une déscription de l'article"
         />
-        <FormSelect
+        <TextField
           name="category"
           label="Categorie"
+          select
           required
           value={category}
           onChange={handleSelectField}
-          categories={categories}
-        />
+          fullWidth
+        >
+          {categories.map((category) => {
+            return (
+              <MenuItem key={category} value={category}>
+                {category}
+              </MenuItem>
+            );
+          })}
+        </TextField>
         <FormField
+          key={generateUniqueId()}
           name="image"
           type="file"
           label="Ajouter des photos"
           removeFile={removeFile}
-          required
           onChange={handleImageFile}
           imageNames={imageNames}
+          error={imageError}
         />
-        <Button type="submit" buttonStyle={ButtonType.ButtonSubmit}>
-          Valider
-        </Button>
+        <CustomButton type="submit">Valider</CustomButton>
       </FormSell>
     </SellFormContainer>
   );

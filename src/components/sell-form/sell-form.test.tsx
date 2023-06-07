@@ -26,11 +26,8 @@ describe("Sell-Form", () => {
     const descriptionInput = screen.getByText("Description");
     expect(descriptionInput).toBeInTheDocument();
 
-    const categorieInput = screen.getByRole("combobox");
+    const categorieInput = screen.getByRole("button", { name: /categorie ​/i });
     expect(categorieInput).toBeInTheDocument();
-
-    const categorieOptions = screen.getAllByRole("option");
-    expect(categorieOptions.length).toBe(6);
 
     const fileInput = screen.getByText(/ajouter des photos/i);
     expect(fileInput).toBeInTheDocument();

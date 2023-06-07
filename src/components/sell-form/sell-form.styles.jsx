@@ -24,6 +24,6 @@ export const FormSell = styled.form`
   height: fit-content;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+
   padding: 20px;
 `;
