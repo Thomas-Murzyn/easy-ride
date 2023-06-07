@@ -13,7 +13,7 @@ export type priceFilter = "asc" | "desc" | "unset";
 
 function StoreArticles() {
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
-  const [price, setPrice] = useState<number[]>([0, 300]);
+  const [price, setPrice] = useState<number[]>([0, 800]);
   const [filter, setFilter] = useState<priceFilter>("unset");
 
   let articles: Article[] = useAppSelector(

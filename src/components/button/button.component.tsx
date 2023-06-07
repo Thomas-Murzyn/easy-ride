@@ -41,4 +41,9 @@ export const CustomButton = styled(MuiButton)`
   }
 `;
 
+export const CustomHomeButton = styled(MuiButton)`
+  color: #000000; /* Couleur du texte en blanc */
+  font-size: 25px;
+`;
+
 export default Button;

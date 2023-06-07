@@ -12,7 +12,7 @@ describe("Home", () => {
     render(<Home />);
 
     const heading = screen.getByRole("heading", {
-      name: /vendez vos vieux vélos en toutes simplicité/i,
+      name: /Simplifier vos déplacements/i,
     });
     expect(heading).toBeInTheDocument();
 
