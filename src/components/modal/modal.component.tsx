@@ -12,14 +12,14 @@ import { CustomButton } from "../button/button.component";
 export type PropsWithChildren<P> = P & { children?: React.ReactNode };
 
 export type ModalProps = {
-  show: boolean;
+  showModal: boolean;
   title: string;
   closeModal: () => void;
   handleSubmit?: () => void;
 };
 
 function Modal({
-  show,
+  showModal,
   closeModal,
   title,
   children,
@@ -30,7 +30,7 @@ function Modal({
   if (!rootElement) return null;
 
   return ReactDOM.createPortal(
-    <ModalContainer show={show} onClick={closeModal}>
+    <ModalContainer show={showModal} onClick={closeModal}>
       <ModalContent onClick={(e: Event) => e.stopPropagation()}>
         <ModalHeader>
           <Typography variant="h6">{title}</Typography>

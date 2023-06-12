@@ -1,36 +1,59 @@
-import { ArticleWrapper, ArticleImageWrapper } from "./article.styles";
+import { ArticleWrapper, CustomArticleBox } from "./article.styles";
 import { selectArticle } from "../../app/features/articles/articles.selector";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { useParams } from "react-router-dom";
-import Carousel from "../carousel/carousel.component";
-import SideMenu from "../side-menu/side-menu.component";
+
 import Modal from "../modal/modal.component";
 import { useState, useEffect } from "react";
-import { updateArticle } from "../../utils/firebase/firebase.utils";
+import {
+  updateArticle,
+  getUserInfo,
+  UserData,
+} from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
-import { TextField, InputAdornment } from "@mui/material";
+
+import {
+  TextField,
+  InputAdornment,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@mui/material";
 
 function Article() {
   const { id } = useParams();
   const article = useAppSelector(selectArticle(`${id}`));
   const user = useAppSelector(selectCurrentUser);
-
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
+  const [showInfo, setShowInfo] = useState(false);
 
   const [message, setMessage] = useState("");
+  const [articleOwner, setArticleOwner] = useState<UserData | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
   }, []);
 
+  useEffect(() => {
+    const getArticleOwner = async () => {
+      const response = await getUserInfo(article.userId);
+      setArticleOwner(response);
+    };
+
+    if (article) getArticleOwner();
+  }, [article]);
+
   const openModal = () => {
-    setShow(true);
+    setShowModal(true);
   };
 
   const closeModal = () => {
-    setShow(false);
+    setShowModal(false);
   };
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,20 +93,61 @@ function Article() {
     }
   };
 
-  if (article) {
+  if (article && articleOwner) {
+    const { articleName, category, description, imageUrls, price, userId, id } =
+      article;
     return (
       <ArticleWrapper>
-        <ArticleImageWrapper>
-          <Carousel
-            articleName={article.articleName}
-            images={article.imageUrls}
-          />
-        </ArticleImageWrapper>
-        <SideMenu openModal={openModal} article={article} />
+        <CustomArticleBox>
+          <Card>
+            <CardMedia
+              component="img"
+              height={400}
+              image={imageUrls[0]}
+              sx={{
+                objectFit: "fill",
+              }}
+              alt={articleName}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5">
+                {articleName}
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                {`Prix : ${article.price}€`}
+              </Typography>
+              {showInfo && (
+                <Typography gutterBottom variant="body2">
+                  {description}
+                </Typography>
+              )}
+              {showInfo && (
+                <Typography
+                  gutterBottom
+                  variant="body2"
+                >{`Vendu par : ${articleOwner?.displayName}`}</Typography>
+              )}
+              {showInfo && (
+                <Typography
+                  gutterBottom
+                  variant="body2"
+                >{`Categorie : ${article.category}`}</Typography>
+              )}
+            </CardContent>
+            <CardActions>
+              {user?.userId !== article.userId && (
+                <Button onClick={openModal}>Faire une offre</Button>
+              )}
+              <Button onClick={() => setShowInfo(!showInfo)}>
+                Plus d'informations
+              </Button>
+            </CardActions>
+          </Card>
+        </CustomArticleBox>
         {isLoading && (
           <Modal
             title={"Faire une offre"}
-            show={show}
+            showModal={showModal}
             closeModal={closeModal}
             handleSubmit={handleSubmit}
           >

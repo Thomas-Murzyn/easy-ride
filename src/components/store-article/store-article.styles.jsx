@@ -23,7 +23,7 @@ export const ArticleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 20px;
-  border: 2px solid ${mainColor};
+  border: 1px solid ${mainColor};
   box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 18px -3px rgba(0, 0, 0, 0.75);

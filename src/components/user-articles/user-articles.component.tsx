@@ -111,7 +111,7 @@ function UserArticles() {
       })}
       {offers.articleId && (
         <Modal
-          show={showModal}
+          showModal={showModal}
           title="Liste des offres"
           closeModal={closeModal}
         >

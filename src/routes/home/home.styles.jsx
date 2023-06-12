@@ -12,7 +12,7 @@ export const HomeContainer = styled.div`
 export const HomeWrapper = styled.div`
   border: 1px solid black;
   height: 400px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
