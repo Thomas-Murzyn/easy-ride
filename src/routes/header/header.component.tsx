@@ -1,14 +1,10 @@
-import {
-  HeaderContainer,
-  NavigationContainer,
-  NavLink,
-  LogoContainer,
-} from "./header.styles";
+import { HeaderContainer, NavLink, LogoContainer } from "./header.styles";
 import { Outlet } from "react-router-dom";
 import Logo from "../../assets/easyRide_logo.png";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 import { useAppSelector } from "../../app/hooks/hooks";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Stack } from "@mui/material";
 
 function Header() {
   const user = useAppSelector(selectCurrentUser);
@@ -20,7 +16,7 @@ function Header() {
           <img src={Logo} alt="logo easyRide" />
         </LogoContainer>
 
-        <NavigationContainer>
+        <Stack direction="row" alignItems="center">
           <NavLink to="/">Accueil</NavLink>
           <NavLink to="/shop">Acheter</NavLink>
           <NavLink to="/sell">Vendre</NavLink>
@@ -33,7 +29,7 @@ function Header() {
               Se connecter
             </NavLink>
           )}
-        </NavigationContainer>
+        </Stack>
       </HeaderContainer>
       <Outlet data-testid="outlet-component" />
     </>

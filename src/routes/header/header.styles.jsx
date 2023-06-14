@@ -26,13 +26,6 @@ export const LogoContainer = styled.div`
   }
 `;
 
-export const NavigationContainer = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 25%;
-`;
-
 export const NavLink = styled(Link)`
   font-size: 20px;
   padding: 10px;
