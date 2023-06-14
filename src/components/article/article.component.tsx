@@ -107,7 +107,7 @@ function Article() {
               sx={{
                 objectFit: "fill",
               }}
-              alt={articleName}
+              aria-label={articleName}
             />
             <CardContent>
               <Typography gutterBottom variant="h5">
