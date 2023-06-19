@@ -35,8 +35,7 @@
     "coverage": "yarn test --coverage --watchAll",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
-    "prepare": "husky install"
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\""
   },
   "eslintConfig": {
     "extends": [
