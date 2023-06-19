@@ -94,8 +94,7 @@ function Article() {
   };
 
   if (article && articleOwner) {
-    const { articleName, category, description, imageUrls, price, userId, id } =
-      article;
+    const { articleName, description, imageUrls } = article;
     return (
       <ArticleWrapper>
         <CustomArticleBox>

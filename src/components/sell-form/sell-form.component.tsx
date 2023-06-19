@@ -1,6 +1,6 @@
 import { SellFormContainer, FormSell } from "./sell-form.styles";
 import FormField from "../form-input/form-field.component";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   addItemToSell,
   generateUniqueId,

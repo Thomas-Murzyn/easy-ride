@@ -1,17 +1,9 @@
-import {
-  ArticleContainer,
-  ArticleInfo,
-  ArticlePictureContainer,
-  ArticleInfoContainer,
-  NotificationLogo,
-} from "./store-article.styles";
 import { Article } from "../../app/features/articles/articles.slice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks/hooks";
 import { selectCurrentUser } from "../../app/features/user/user.selector";
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
